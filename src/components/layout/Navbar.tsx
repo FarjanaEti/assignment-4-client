@@ -22,9 +22,9 @@ import { ModeToggle } from "./MoodToggle";
 
 const menu = [
   { title: "Home", url: "/" },
-  { title: "Browse Meals", url: "/meals" },
+  { title: "Browse Meals", url: "/browsMeal" },
   { title: "Restaurants", url: "/restaurants" },
-  { title: "Orders", url: "/orders" },
+  { title: "Contact", url: "/orders" },
 ];
 
 const Navbar = ({ className }: { className?: string }) => {

@@ -1,4 +1,6 @@
+import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
+import WhyFoodHub from "@/components/layout/WhyUs";
 export default function CommonLayout({
   children,
 }: {
@@ -8,6 +10,8 @@ export default function CommonLayout({
     <div>
       <Navbar></Navbar>
       {children}
+      <WhyFoodHub></WhyFoodHub>
+      <Footer></Footer>
     </div>
   );
 }
