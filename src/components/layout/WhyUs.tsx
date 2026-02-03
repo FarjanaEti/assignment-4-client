@@ -35,33 +35,54 @@ export default function WhyFoodHub() {
   return (
     <div className="flex flex-col">
       {/* HERO */}
-      <section className="relative h-[60vh] flex min-h-420px">
-        <Image
-          src="/why-foodHub.jpeg"
-          alt="FoodHub Experience"
-          fill
-          className="object-cover"
-          priority
-        />
-        {/* <div className="absolute inset-0 bg-black/60" /> */}
+    
+<section className="container mx-auto px-6 py-20">
+  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    
+    {/* TEXT */}
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+        Why <span className="text-primary">FoodHub</span> Exists
+      </h1>
 
-        <div className=" flex h-full items-center justify-center text-center px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl text-white"
-          >
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Why FoodHub?
-            </h1>
-            <p className="text-lg text-white/90">
-              A modern food ordering platform built to connect customers and
-              providers through clarity, control, and convenience.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <p className="text-lg text-muted-foreground mb-6">
+        FoodHub is designed to bridge the gap between customers and food
+        providers through a role-based, scalable, and user-centric platform.
+      </p>
+
+      <p className="text-muted-foreground">
+        Instead of mixing responsibilities, FoodHub separates public discovery
+        from authenticated dashboards — ensuring clarity, security, and a
+        smoother experience for everyone involved.
+      </p>
+    </motion.div>
+
+    {/* IMAGE */}
+    <motion.div
+      initial={{ opacity: 0, x: 30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6 }}
+      className="relative"
+    >
+      <div className="absolute -inset-4 rounded-2xl bg-primary/10 blur-2xl" />
+      <div className="relative overflow-hidden rounded-2xl shadow-xl border">
+        <Image
+          src="/why_food.jpeg"
+          alt="FoodHub platform overview"
+          width={700}
+          height={500}
+          className="object-cover"
+        />
+      </div>
+    </motion.div>
+
+  </div>
+</section>
+
 
       {/* PURPOSE */}
       <section className="container mx-auto px-6 py-16 text-center max-w-4xl">
