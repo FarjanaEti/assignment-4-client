@@ -24,7 +24,7 @@ const menu = [
   { title: "Home", url: "/" },
   { title: "Browse Meals", url: "/browsMeal" },
   { title: "Restaurants", url: "/restaurants" },
-  { title: "Contact", url: "/orders" },
+  { title: "Dashboard", url: "/dashboard" },
 ];
 
 const Navbar = ({ className }: { className?: string }) => {
