@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -9,17 +9,22 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
-type Props = {
-  children: ReactNode
-}
 
-export default function DashboardLayout({ children }: Props) {
+
+export default function DashboardLayout({
+ customer,
+  admin
+}: {
+  children: React.ReactNode;
+  admin:React.ReactNode;
+  customer:React.ReactNode
+}) {
   return (
     <div className="min-h-screen flex bg-muted/40">
       {/* Sidebar */}
      
       <aside className="w-64 border-r bg-background p-4  md:block">
-       <h2 className="text-lg !bg-cyan-500 !text-white font-semibold mb-4">
+       <h2 className="text-lg   font-semibold mb-4">
   FoodHub
 </h2>
 
@@ -60,7 +65,8 @@ export default function DashboardLayout({ children }: Props) {
 
         {/* Page Content */}
         <main className="flex-1 p-6">
-          {children}
+          {admin}
+          {customer}
         </main>
       </div>
     </div>
