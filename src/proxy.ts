@@ -7,26 +7,26 @@ export async function proxy(request: NextRequest) {
 
   const { data } = await userService.getSession()
 
-  // 1️⃣ Not authenticated
+  //  Not authenticated
   if (!data?.user) {
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
   const role = data.user.role
 
-  // 2️⃣ Admin rules
+  //  Admin rules
   if (role === Roles.admin && pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/admin-dashboard", request.url))
   }
 
-  // 3️⃣ Provider rules
+  //  Provider rules
   if (role === Roles.provider && pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(
       new URL("/provider-dashboard", request.url)
     )
   }
 
-  // 4️⃣ Customer rules
+  //  Customer rules
   if (
     role === Roles.customer &&
     (pathname.startsWith("/admin-dashboard") ||
@@ -35,7 +35,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url))
   }
 
-  // 5️⃣ Block cross-access for admin/provider
+  //  Block cross-access for admin/provider
   if (
     role !== Roles.admin &&
     pathname.startsWith("/admin-dashboard")
