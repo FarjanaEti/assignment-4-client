@@ -55,7 +55,7 @@ export default async function DashboardLayout({
             <>
               <SidebarItem label="Orders" href="/provider-dashboard/orders" />
               <SidebarItem label="Menu" href="/provider-dashboard/menu" />
-              <SidebarItem label="Revenue" href="/provider-dashboard/revenue" />
+              <SidebarItem label="Revenue" href="/provider-dashboard/category" />
             </>
           )}
 
@@ -65,8 +65,8 @@ export default async function DashboardLayout({
               <SidebarItem label="Users" href="/admin-dashboard/users" />
               <SidebarItem label="Providers" href="/admin-dashboard/providers" />
               <SidebarItem
-                label="Platform Revenue"
-                href="/admin-dashboard/revenue"
+                label="category"
+                href="/admin-dashboard/category"
               />
             </>
           )}

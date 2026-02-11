@@ -18,16 +18,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { env } from "@/env";
+import { allUserService } from "@/services/allUser.service";
 
 
-export default  function AdminDashboardHome() {
+export default async function AdminDashboardHome() {
 //   const res = await fetch(`${env.NEXT_PUBLIC_API_URL}/provider`, {
 //   cache: "no-store",
 // });
 
-//const providers = await res.json();
+// const providers = await res.json();
 // console.log(providers)
-  // In real app these would come from API / server components
+ // In real app these would come from API / server components
   const stats = {
     totalUsers: 1248,
     newUsersToday: 42,
