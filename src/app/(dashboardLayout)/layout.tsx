@@ -46,7 +46,7 @@ export default async function DashboardLayout({
           {role === "CUSTOMER" && (
             <>
               <SidebarItem label="My Orders" href="/dashboard/orders" />
-              <SidebarItem label="Favorites" href="/dashboard/favorites" />
+              <SidebarItem label="Favorites" href="/customer-dashboard/favorites" />
             </>
           )}
 
