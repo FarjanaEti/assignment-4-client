@@ -15,7 +15,7 @@ export default async function ProvidersPage() {
   }
 
   const providers = data?.data || [];
-
+  console.log(providers)
   return (
     <div className="p-6">
       {/* Page Header */}

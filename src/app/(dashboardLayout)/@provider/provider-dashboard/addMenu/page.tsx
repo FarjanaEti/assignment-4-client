@@ -112,7 +112,7 @@ if (!res.ok) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+    <div className="max-w-3xl mx-auto bg-white p-8 text-black rounded-xl shadow-md">
       <h1 className="text-2xl font-bold mb-6">Add New Menu Item</h1>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -122,39 +122,39 @@ if (!res.ok) {
 
         {/* Title */}
         <div>
-          <label className="block font-medium mb-2">Title *</label>
+          <label className="block text-black font-medium mb-2">Title *</label>
           <input
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Enter meal title"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block font-medium mb-2">Description</label>
+          <label className="block font-medium text-black mb-2">Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             rows={4}
-            className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Enter description"
           />
         </div>
 
         {/* Price */}
         <div>
-          <label className="block font-medium mb-2">Price (৳) *</label>
+          <label className="block text-black font-medium mb-2">Price (৳) *</label>
           <input
             type="number"
             name="price"
             value={formData.price}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Enter price"
           />
         </div>
@@ -166,7 +166,7 @@ if (!res.ok) {
             name="categoryId"
             value={formData.categoryId}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
           >
             <option value="">Select category</option>
             {categories.map((cat) => (
@@ -185,7 +185,7 @@ if (!res.ok) {
             name="image"
             value={formData.image}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
             placeholder="Paste image URL"
           />
         </div>
@@ -194,7 +194,7 @@ if (!res.ok) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+          className="w-full bg-yellow-800 text-white py-3 rounded-lg hover:bg-blue-700 transition"
         >
           {loading ? "Saving..." : "Add Menu"}
         </button>
