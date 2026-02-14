@@ -53,9 +53,10 @@ export default async function DashboardLayout({
           {/* Provider */}
           {role === "PROVIDER" && (
             <>
+              <SidebarItem label="Add-Menu" href="/provider-dashboard/addMenu" />
               <SidebarItem label="Orders" href="/provider-dashboard/orders" />
-              <SidebarItem label="Menu" href="/provider-dashboard/menu" />
-              <SidebarItem label="Revenue" href="/provider-dashboard/category" />
+              <SidebarItem label="ALL Menu" href="/provider-dashboard/allMenu" />
+              <SidebarItem label="Category" href="/provider-dashboard/category" />
             </>
           )}
 
