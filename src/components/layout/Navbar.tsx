@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { Menu, UtensilsCrossed } from "lucide-react";
+import { UtensilsCrossed, Menu } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,6 +16,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+
+import { userService } from "@/services/user.service";
+import NavbarAuth from "./NavbarAuth";
 import { ModeToggle } from "./MoodToggle";
 
 const menu = [
@@ -27,7 +28,12 @@ const menu = [
   { title: "Dashboard", url: "/dashboard" },
 ];
 
-const Navbar = ({ className }: { className?: string }) => {
+export default async function Navbar({ className }: { className?: string }) {
+  const response = await userService.getSession();
+   const user = response.data?.user ?? null;
+   const session = response.data?.session ?? null;
+
+
   return (
     <header
       className={cn(
@@ -35,18 +41,18 @@ const Navbar = ({ className }: { className?: string }) => {
         className
       )}
     >
-      <div className="container mx-auto  relative h-16">
-        {/* LEFT — Logo */}
+      <div className="container mx-auto relative h-16">
+        {/* Logo */}
         <Link
           href="/"
           className="absolute left-6 top-1/2 flex -translate-y-1/2 items-center gap-2"
         >
-          <UtensilsCrossed className="h-6 w-6 text-black" />
-          <span className="text-lg font-bold text-black">FoodHub</span>
+          <UtensilsCrossed className="h-6 w-6" />
+          <span className="text-lg font-bold">FoodHub</span>
         </Link>
 
-        {/* CENTER — Menu */}
-        <nav className="absolute left-1/2 top-1/2 hidden  -translate-x-1/2 -translate-y-1/2 lg:flex">
+        {/* Menu */}
+        <nav className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:flex">
           <NavigationMenu>
             <NavigationMenuList className="gap-8">
               {menu.map((item) => (
@@ -54,7 +60,7 @@ const Navbar = ({ className }: { className?: string }) => {
                   <NavigationMenuLink asChild>
                     <Link
                       href={item.url}
-                      className="text-sm font-medium text-slate-950 transition-colors hover:text-primary"
+                      className="text-sm font-medium hover:text-primary"
                     >
                       {item.title}
                     </Link>
@@ -65,18 +71,13 @@ const Navbar = ({ className }: { className?: string }) => {
           </NavigationMenu>
         </nav>
 
-        {/* RIGHT — Auth */}
-        <div className="absolute text-orange-500 right-6 top-1/2 hidden -translate-y-1/2 lg:flex gap-3">
-           <ModeToggle></ModeToggle>
-          <Button variant="outline" size="sm" asChild>
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button size="sm" asChild>
-            <Link href="/register">Register</Link>
-          </Button>
+        {/* Right */}
+        <div className="absolute right-6 top-1/2 hidden -translate-y-1/2 lg:flex items-center gap-4">
+          <ModeToggle />
+          <NavbarAuth user={user} />
         </div>
 
-        {/* MOBILE MENU */}
+        {/* Mobile */}
         <div className="absolute right-6 top-1/2 -translate-y-1/2 lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
@@ -86,36 +87,17 @@ const Navbar = ({ className }: { className?: string }) => {
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>
-                  <Link href="/" className="flex items-center gap-2">
-                    <UtensilsCrossed className="h-5 w-5 text-primary" />
-                    <span className="font-bold text-primary">FoodHub</span>
-                  </Link>
-                </SheetTitle>
+                <SheetTitle>FoodHub</SheetTitle>
               </SheetHeader>
 
-              <div className="mt-6 flex flex-col gap-6">
-                <div className="flex flex-col gap-4">
-                  {menu.map((item) => (
-                    <Link
-                      key={item.title}
-                      href={item.url}
-                      className="text-sm font-medium text-muted-foreground hover:text-primary"
-                    >
-                      {item.title}
-                    </Link>
-                  ))}
-                </div>
+              <div className="mt-6 flex flex-col gap-4">
+                {menu.map((item) => (
+                  <Link key={item.title} href={item.url}>
+                    {item.title}
+                  </Link>
+                ))}
 
-                <div className="flex flex-col gap-3">
-                  <ModeToggle></ModeToggle>
-                  <Button variant="outline" asChild>
-                    <Link href="/login">Login</Link>
-                  </Button>
-                  <Button asChild>
-                    <Link href="/register">Register</Link>
-                  </Button>
-                </div>
+                <NavbarAuth user={user} />
               </div>
             </SheetContent>
           </Sheet>
@@ -123,6 +105,4 @@ const Navbar = ({ className }: { className?: string }) => {
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}

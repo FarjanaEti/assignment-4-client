@@ -28,4 +28,6 @@ export const userService = {
       return { data: null, error: { message: "Something Went Wrong" } };
     }
   },
+  
+
 };

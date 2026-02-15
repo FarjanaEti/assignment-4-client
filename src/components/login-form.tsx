@@ -46,13 +46,19 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
       const toastId = toast.loading("Logging in");
       try {
         const { data, error } = await authClient.signIn.email(value);
-
+    console.log(data?.token)
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
-
+       if (data?.token) {
+      localStorage.setItem("token", data.token); // replace with actual token key
+    }
+     if (data?.user) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+    }
         toast.success("User Logged in Successfully", { id: toastId });
+        //  window.location.href = "/";
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

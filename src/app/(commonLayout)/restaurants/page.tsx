@@ -5,9 +5,9 @@ export default async function Restaurants() {
   const providers = data?.data || [];
 
   return (
-    <div className="bg-gray-50 min-h-screen py-12">
+    <div className=" min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-6 space-y-20">
-        <h1 className="text-4xl font-extrabold text-gray-900">
+        <h1 className="text-4xl font-extrabold mx-auto text-center text-yellow-800">
           Restaurants
         </h1>
 
