@@ -1,16 +1,19 @@
+
+import ConditionalWhyUs from "@/components/conditional";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
-import WhyFoodHub from "@/components/layout/WhyUs";
+
 export default function CommonLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  
   return (
     <div>
       <Navbar></Navbar>
       {children}
-      <WhyFoodHub></WhyFoodHub>
+    <ConditionalWhyUs></ConditionalWhyUs>
       <Footer></Footer>
     </div>
   );

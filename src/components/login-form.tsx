@@ -58,7 +58,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
       localStorage.setItem("user", JSON.stringify(data.user));
     }
         toast.success("User Logged in Successfully", { id: toastId });
-        //  window.location.href = "/";
+          window.location.href = "/";
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

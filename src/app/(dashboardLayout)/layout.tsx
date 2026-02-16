@@ -55,7 +55,7 @@ export default async function DashboardLayout({
             <>
               <SidebarItem label="Add-Menu" href="/provider-dashboard/addMenu" />
               <SidebarItem label="Orders" href="/provider-dashboard/orders" />
-              <SidebarItem label="ALL Menu" href="/provider-dashboard/allMenu" />
+              <SidebarItem label="My Menu" href="/provider-dashboard/myMenu" />
               <SidebarItem label="Category" href="/provider-dashboard/category" />
             </>
           )}
@@ -82,7 +82,7 @@ export default async function DashboardLayout({
 
           <div className="flex items-center gap-4">
             {/* Logout LEFT */}
-            <Button variant="ghost" size="sm">
+            <Button  variant="ghost" size="sm">
               Logout
             </Button>
 

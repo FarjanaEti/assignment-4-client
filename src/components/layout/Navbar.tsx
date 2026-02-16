@@ -23,7 +23,7 @@ import { ModeToggle } from "./MoodToggle";
 
 const menu = [
   { title: "Home", url: "/" },
-  { title: "Browse Meals", url: "/browsMeal" },
+  { title: "All Meals", url: "/browsMeal" },
   { title: "Restaurants", url: "/restaurants" },
   { title: "Dashboard", url: "/dashboard" },
 ];
@@ -41,14 +41,14 @@ export default async function Navbar({ className }: { className?: string }) {
         className
       )}
     >
-      <div className="container mx-auto relative h-16">
+      <div className="container mx-auto text-black relative h-16">
         {/* Logo */}
         <Link
           href="/"
           className="absolute left-6 top-1/2 flex -translate-y-1/2 items-center gap-2"
         >
           <UtensilsCrossed className="h-6 w-6" />
-          <span className="text-lg font-bold">FoodHub</span>
+          <span className="text-lg text-black font-bold">FoodHub</span>
         </Link>
 
         {/* Menu */}
