@@ -46,7 +46,9 @@ export default async function DashboardLayout({
           {role === "CUSTOMER" && (
             <>
               <SidebarItem label="My Orders" href="/dashboard/orders" />
-              <SidebarItem label="Favorites" href="/customer-dashboard/favorites" />
+              <SidebarItem label="Cart" href="/customer-dashboard/cart" />
+              <SidebarItem label="My Profile" href="/customer-dashboard/profile" />
+              <SidebarItem label="checkOut" href="/customer-dashboard/checkout" />
             </>
           )}
 
@@ -56,7 +58,7 @@ export default async function DashboardLayout({
               <SidebarItem label="Add-Menu" href="/provider-dashboard/addMenu" />
               <SidebarItem label="Orders" href="/provider-dashboard/orders" />
               <SidebarItem label="My Menu" href="/provider-dashboard/myMenu" />
-              <SidebarItem label="Category" href="/provider-dashboard/category" />
+              <SidebarItem label="Reviews" href="/provider-dashboard/reviews" />
             </>
           )}
 

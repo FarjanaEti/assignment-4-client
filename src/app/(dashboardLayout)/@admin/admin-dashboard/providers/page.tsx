@@ -1,4 +1,6 @@
+import { deleteProviderAction } from "@/constant/delete-action/provider.action";
 import { providerService } from "@/services/provider.service";
+import Link from "next/link";
 
 export default async function ProvidersPage() {
   const { data, error } = await providerService.getAllProviders(
@@ -15,7 +17,7 @@ export default async function ProvidersPage() {
   }
 
   const providers = data?.data || [];
-  console.log(providers)
+ 
   return (
     <div className="p-6">
       {/* Page Header */}
@@ -69,12 +71,22 @@ export default async function ProvidersPage() {
                 </td>
 
                 <td className="px-6 py-4 text-right">
-                  <button className="text-blue-600 hover:text-blue-800 font-medium text-sm mr-4">
-                    View
-                  </button>
-                  <button className="text-red-600 hover:text-red-800 font-medium text-sm">
-                    Delete
-                  </button>
+                  <Link
+               href={`/admin-dashboard/providers/${provider.id}`}
+                className="text-blue-600 hover:text-blue-800 font-medium text-sm mr-4">
+                  View
+                   </Link>
+                 <form action={deleteProviderAction} className="inline">
+  <input type="hidden" name="providerId" value={provider.id} />
+  <button
+    type="submit"
+    className="text-red-600 hover:text-black-800 font-medium text-sm"
+  >
+    Delete
+  </button>
+</form>
+
+
                 </td>
               </tr>
             ))}

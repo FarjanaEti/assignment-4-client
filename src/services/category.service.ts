@@ -40,7 +40,7 @@ export const categoryService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/api/categories`, {
+      const res = await fetch(`${API_URL}/api/admin/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

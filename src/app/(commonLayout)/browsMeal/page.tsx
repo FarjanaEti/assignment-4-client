@@ -37,7 +37,7 @@ export default async function BrowseMeal() {
 
               {/* Content */}
               <div className="p-5 space-y-3">
-                <h3 className="text-lg font-semibold line-clamp-1">
+                <h3 className="text-lg text-black font-semibold line-clamp-1">
                   {meal.title}
                 </h3>
 

@@ -68,4 +68,37 @@ export const providerService = {
       };
     }
   },
+  getProviderById: async function (id: string) {
+  const res = await fetch(`${API_URL}/provider/${id}`, {
+    headers: { Cookie: (await cookies()).toString() },
+    cache:  "no-store",
+  });
+
+  if (!res.ok) throw new Error("Failed");
+
+  return { data: await res.json(), error: null };
+},
+
+deleteProvider: async function (providerId: string) {
+  try {
+    const cookieStore = await cookies();
+
+    const res = await fetch(`${API_URL}/provider/${providerId}`, {
+      method: "DELETE",
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete provider");
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false };
+  }
+},
+
+
 };

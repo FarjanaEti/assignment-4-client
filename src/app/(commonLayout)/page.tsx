@@ -42,17 +42,17 @@ export default async function Home() {
               </div>
 
               {/* Content */}
-              <div className="p-5 space-y-3">
+              <div className="p-5 text-black space-y-3">
                 <h3 className="text-lg font-semibold line-clamp-1">
                   {meal.title}
                 </h3>
 
-                <p className="text-sm text-gray-500 line-clamp-2">
+                <p className="text-sm text-black line-clamp-2">
                   {meal.description || "No description available"}
                 </p>
 
-                <div className="flex items-center justify-between pt-2">
-                  <span className="text-xl font-bold text-primary">
+                <div className="flex text-black items-center justify-between pt-2">
+                  <span className="text-xl text-black font-bold ">
                     ৳{meal.price}
                   </span>
 

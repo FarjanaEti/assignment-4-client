@@ -1,9 +1,10 @@
 import { categoryService } from "@/services/category.service";
+import Link from "next/link";
 
 export default async function CategoriesPage() {
   const { data: categories, error } =
     await categoryService.getAllCategories();
-
+  console.log(categories)
   if (error) {
     return (
       <div className="p-6 text-red-500">
@@ -16,12 +17,14 @@ export default async function CategoriesPage() {
     <div className="p-6">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-gray-800">
+        <h1 className="text-2xl font-semibold text-black">
           Manage Categories
         </h1>
-        <button className="px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition">
-          + Add Category
-        </button>
+        <Link
+               href={`${"http://localhost:3000/"}/admin-dashboard/add-category`}
+                className="text-blue-600 hover:text-blue-800 font-medium text-sm mr-4">
+                  Add Category
+                   </Link>
       </div>
 
       {/* Table */}
@@ -68,7 +71,7 @@ export default async function CategoriesPage() {
                   </button>
 
                   <button className="text-red-600 hover:text-red-800 text-sm font-medium">
-                    Toggle
+                    Delete
                   </button>
                 </td>
               </tr>

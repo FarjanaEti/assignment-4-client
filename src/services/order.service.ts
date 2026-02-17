@@ -38,7 +38,7 @@ export const orderService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/order/providerOrders`, {
+      const res = await fetch(`${API_URL}/provider/meals/myMeals`, {
         cache: "no-store",
         headers: {
           Cookie: cookieStore.toString(),
