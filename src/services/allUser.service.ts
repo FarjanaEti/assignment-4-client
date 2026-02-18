@@ -9,7 +9,7 @@ export const allUserService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/api/users`, {
+      const res = await fetch(`${API_URL}/admin/allUser`, {
         cache: "no-store",
         headers: {
           Cookie: cookieStore.toString(),
@@ -33,7 +33,7 @@ export const allUserService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/api/users/${id}/toggle`, {
+      const res = await fetch(`${API_URL}/admin/user/${id}`, {
         method: "PATCH",
         headers: {
           Cookie: cookieStore.toString(),
@@ -49,24 +49,24 @@ export const allUserService = {
   },
 
   // CHANGE ROLE
-  updateUserRole: async function (id: string, role: string) {
-    try {
-      const cookieStore = await cookies();
+  // updateUserRole: async function (id: string, role: string) {
+  //   try {
+  //     const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/api/users/${id}/role`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
-        },
-        body: JSON.stringify({ role }),
-      });
+  //     const res = await fetch(`${API_URL}/api/users/${id}/role`, {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Cookie: cookieStore.toString(),
+  //       },
+  //       body: JSON.stringify({ role }),
+  //     });
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      return { data, error: null };
-    } catch {
-      return { data: null, error: { message: "Role update failed" } };
-    }
-  },
+  //     return { data, error: null };
+  //   } catch {
+  //     return { data: null, error: { message: "Role update failed" } };
+  //   }
+  // },
 };

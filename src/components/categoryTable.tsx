@@ -39,10 +39,7 @@ const [hiddenIds, setHiddenIds] = useState<string[]>([]);
   // hide from UI only
   setHiddenIds(prev => [...prev, id]);
 };
-  // const handleDelete = async (id: string) => {
-  //   if (!confirm("Deactivate this category?")) return;
-  //   await toggleCategory(id);
-  // };
+  
 
   return (
     <div className="overflow-x-auto rounded-2xl border bg-white shadow-sm">
