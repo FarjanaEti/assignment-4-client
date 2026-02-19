@@ -65,12 +65,12 @@ export default async function ProviderOrdersPage() {
                 </td>
 
                 <td className="px-6 py-4 font-medium">
-                  ৳ {order.price}
+                  ৳ {order.totalAmount}
                 </td>
 
                 <td className="px-6 py-4 text-right">
                   <Link
-                    href={`/dashboard/orders/${order.id}`}
+                    href={`/provider-dashboard/orders/${order.id}`}
                     className="text-blue-600 hover:text-blue-800 text-sm font-medium"
                   >
                     View Details

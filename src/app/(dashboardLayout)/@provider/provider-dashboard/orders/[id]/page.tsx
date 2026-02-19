@@ -11,10 +11,10 @@ export default async function OrderDetailsPage({
   params,
 }: Props) {
   const { id } = await params; 
+
   const { data: order, error } =
-  await orderService.getOrderById(id);
-  console.log(id,order)
- 
+    await orderService.getOrderById(id);
+   console.log(id,order)
   if (error || !order) {
     return notFound();
   }

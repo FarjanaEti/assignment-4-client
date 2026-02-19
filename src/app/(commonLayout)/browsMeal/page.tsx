@@ -5,7 +5,7 @@ import Image from "next/image"
 
 export default async function BrowseMeal() {
   const {data:meals} =await mealService.getAllMeals()
-  
+  console.log(meals)
   return (
     <div>
       <section className="container mx-auto px-4">
