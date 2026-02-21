@@ -32,7 +32,7 @@ export default function Banner() {
 
           <div className="flex flex-wrap justify-center gap-4">
             <Button size="lg" asChild>
-              <Link href="/meals">Browse Meals</Link>
+              <Link href="/browsMeal">Browse Meals</Link>
             </Button>
 
             <Button
@@ -41,7 +41,7 @@ export default function Banner() {
               className="border-white text-black hover:bg-white hover:text-black"
               asChild
             >
-              <Link href="/restaurants">Partner with Us</Link>
+              <Link href="/beAprovider">Be a Provider</Link>
             </Button>
           </div>
         </div>

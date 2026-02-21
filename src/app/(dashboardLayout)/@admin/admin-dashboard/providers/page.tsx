@@ -1,4 +1,4 @@
-import { deleteProviderAction } from "@/constant/delete-action/provider.action";
+import { deleteProviderAction } from "@/app/action/provider.action";
 import { providerService } from "@/services/provider.service";
 import Link from "next/link";
 
@@ -77,14 +77,14 @@ export default async function ProvidersPage() {
                   View
                    </Link>
                  <form action={deleteProviderAction} className="inline">
-  <input type="hidden" name="providerId" value={provider.id} />
-  <button
-    type="submit"
-    className="text-red-600 hover:text-black-800 font-medium text-sm"
-  >
-    Delete
-  </button>
-</form>
+                   <input type="hidden" name="providerId" value={provider.id} />
+                       <button
+                type="submit"
+             className="text-red-600 hover:text-black-800 font-medium text-sm"
+                  >
+             Delete
+           </button>
+           </form>
 
 
                 </td>
