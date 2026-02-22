@@ -21,18 +21,33 @@ import { userService } from "@/services/user.service";
 import NavbarAuth from "./NavbarAuth";
 import { ModeToggle } from "./MoodToggle";
 
-const menu = [
-  { title: "Home", url: "/" },
-  { title: "All Meals", url: "/browsMeal" },
-  { title: "Restaurants", url: "/restaurants" },
-  { title: "Dashboard", url: "/dashboard" },
-];
+// const menu = [
+//   { title: "Home", url: "/" },
+//   { title: "All Meals", url: "/browsMeal" },
+//   { title: "Restaurants", url: "/restaurants" },
+//   { title: "Dashboard", url: "/dashboard" },
+// ];
 
 export default async function Navbar({ className }: { className?: string }) {
   const response = await userService.getSession();
    const user = response.data?.user ?? null;
    const session = response.data?.session ?? null;
 
+
+    let dashboardUrl = "/dashboard"; // default: customer
+
+  if (user?.role === "PROVIDER") {
+    dashboardUrl = "/provider-dashboard";
+  } else if (user?.role === "ADMIN") {
+    dashboardUrl = "/admin-dashboard";
+  }
+
+  const menu = [
+    { title: "Home", url: "/" },
+    { title: "All Meals", url: "/browsMeal" },
+    { title: "Restaurants", url: "/restaurants" },
+    ...(user ? [{ title: "Dashboard", url: dashboardUrl }] : []),
+  ];
 
   return (
     <header
