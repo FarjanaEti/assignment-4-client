@@ -14,10 +14,10 @@ export default async function Restaurants() {
         {providers.map((provider: any) => (
           <section
             key={provider.id}
-            className="bg-white rounded-3xl shadow-lg overflow-hidden"
+            className="bg-white  rounded-3xl shadow-lg overflow-hidden"
           >
             {/* ================= Provider Header ================= */}
-            <div className="bg-yellow-800 text-white p-8">
+            <div className="bg-yellow-800  text-white p-8">
               <h2 className="text-3xl font-bold">
                 {provider.restaurantName}
               </h2>

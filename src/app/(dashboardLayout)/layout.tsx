@@ -46,9 +46,9 @@ export default async function DashboardLayout({
           {role === "CUSTOMER" && (
             <>
               <SidebarItem label="My Orders" href="/dashboard/orders" />
-              <SidebarItem label="Cart" href="/customer-dashboard/cart" />
-              <SidebarItem label="My Profile" href="/customer-dashboard/profile" />
-              <SidebarItem label="checkOut" href="/customer-dashboard/checkout" />
+              <SidebarItem label="Cart" href="/dashboard/cart" />
+              <SidebarItem label="My Profile" href="/dashboard/profile" />
+              <SidebarItem label="checkOut" href="/dashboard/checkout" />
             </>
           )}
 

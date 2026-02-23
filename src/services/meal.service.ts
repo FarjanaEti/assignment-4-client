@@ -25,7 +25,7 @@ export const mealService = {
       }
 
       const data = await res.json();
-      console.log(data)
+      
      return {
   data: data.data ?? [],
   pagination: data.pagination,

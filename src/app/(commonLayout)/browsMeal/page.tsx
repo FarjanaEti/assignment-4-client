@@ -1,3 +1,5 @@
+
+import { addToCartAction } from "@/app/action/addToCart.action"
 import { Button } from "@/components/ui/button"
 import { mealService } from "@/services/meal.service"
 import Image from "next/image"
@@ -5,7 +7,8 @@ import Image from "next/image"
 
 export default async function BrowseMeal() {
   const {data:meals} =await mealService.getAllMeals()
-  console.log(meals)
+ // console.log(meals)
+  
   return (
     <div>
       <section className="container mx-auto px-4">
@@ -50,7 +53,13 @@ export default async function BrowseMeal() {
                     ৳{meal.price}
                   </span>
 
-                  <Button size="sm">Add To Cart</Button>
+       <form action={addToCartAction}>
+      <input type="hidden" name="mealId" value={meal.id} />
+
+      <Button size="sm" type="submit">
+        Add To Cart
+      </Button>
+    </form>
                   <Button size="sm">Order</Button>
                 </div>
               </div>
