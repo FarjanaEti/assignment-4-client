@@ -56,6 +56,7 @@ export default async function OrderDetailsPage({
         <p className="text-sm text-gray-500">
           {new Date(order.createdAt).toLocaleString()}
         </p>
+        
       </div>
     </div>
   );

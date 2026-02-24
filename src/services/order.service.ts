@@ -4,8 +4,40 @@ import { cookies } from "next/headers";
 const API_URL = env.BACKEND_URL;
 
 export const orderService = {
-  // ================= CUSTOMER =================
+//customer post order
+createOrder: async function (payload: {
+    providerId: string;
+    address: string;
+    items: {
+      mealId: string;
+      quantity: number;
+    }[];
+  }) {
+    try {
+      const cookieStore = await cookies();
 
+      const res = await fetch(`${API_URL}/order`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify(payload),
+        cache: "no-store",
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Failed to place order");
+      }
+
+      const data = await res.json();
+      return { data, error: null };
+    } catch (error) {
+      return { data: null, error };
+    }
+  },
+  //  CUSTOMER 
   getMyOrders: async function () {
     try {
       const cookieStore = await cookies();
@@ -32,7 +64,7 @@ export const orderService = {
     }
   },
 
-  // ================= PROVIDER =================
+  // PROVIDER 
 
   getProviderOrders: async function () {
     try {
@@ -60,7 +92,7 @@ export const orderService = {
     }
   },
 
-  // ================= ADMIN =================
+  //  ADMIN 
 
   getAllOrders: async function () {
     try {
@@ -88,7 +120,7 @@ export const orderService = {
     }
   },
 
-  // ================= ORDER DETAILS =================
+  //  ORDER DETAILS 
 
   getOrderById: async function (id: string) {
     try {
@@ -116,36 +148,32 @@ export const orderService = {
     }
   },
 
-  // ================= UPDATE STATUS (Provider/Admin) =================
+  //  UPDATE STATUS (Provider/Admin)
+  updateOrderStatus: async (id: string, status: string) => {
+  try {
+    const cookieStore = await cookies();
 
-  updateOrderStatus: async function (
-    id: string,
-    status: string
-  ) {
-    try {
-      const cookieStore = await cookies();
+    const res = await fetch(`${API_URL}/order/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookieStore.toString(),
+      },
+      body: JSON.stringify({ status }),
+      cache: "no-store",
+    });
 
-      const res = await fetch(`${API_URL}/order/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
-        },
-        body: JSON.stringify({ status }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to update order status");
-      }
-
-      const data = await res.json();
-
-      return { data: data.data, error: null };
-    } catch {
-      return {
-        data: null,
-        error: { message: "Failed to update order status" },
-      };
+    if (!res.ok) {
+      throw new Error(await res.text());
     }
-  },
+
+    const data = await res.json();
+    return { data: data.data, error: null };
+  } catch (error: any) {
+    return {
+      data: null,
+      error: { message: error.message || "Update failed" },
+    };
+  }
+},
 };

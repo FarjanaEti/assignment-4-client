@@ -1,3 +1,4 @@
+import ReviewModal from "@/app/(dashboardLayout)/@provider/provider-dashboard/orders/review";
 import { orderService } from "@/services/order.service";
 import { notFound } from "next/navigation";
 
@@ -56,6 +57,31 @@ export default async function OrderDetailsPage({
         <p className="text-sm text-gray-500">
           {new Date(order.createdAt).toLocaleString()}
         </p>
+ {order.status === "DELIVERED" && (
+  <div className="space-y-4">
+    <h2 className="text-lg font-semibold">Meals</h2>
+
+    {order.items.map((item:any) => (
+      <div
+        key={item.id}
+        className="flex items-center justify-between border rounded-lg p-4"
+      >
+        <div>
+          <p className="font-medium">{item.meal.title}</p>
+          <p className="text-sm text-gray-500">
+            Quantity: {item.quantity}
+          </p>
+          <p className="text-sm text-gray-500">
+            Price: ৳{item.price}
+          </p>
+        </div>
+
+        {/* REVIEW BUTTON */}
+        <ReviewModal mealId={item.mealId} />
+      </div>
+    ))}
+  </div>
+)}
       </div>
     </div>
   );

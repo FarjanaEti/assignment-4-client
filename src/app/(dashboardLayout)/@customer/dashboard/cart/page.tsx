@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { cartServices } from "@/services/cart.service";
 import { removeCartItemAction } from "@/app/action/removecart.action";
+import { placeOrderAction } from "@/app/action/orderPlace.action";
 
 export default async function CustomerOrdersPage() {
   const { data: carts, error } = await cartServices.getMyOrders();
@@ -167,11 +168,38 @@ export default async function CustomerOrdersPage() {
     </div>
   </div>
 
+  <form action={placeOrderAction} className="mt-6 space-y-4">
+  <input
+    type="hidden"
+    name="providerId"
+    value={cart.providerId}
+  />
+
+  <input
+    type="hidden"
+    name="items"
+    value={JSON.stringify(
+      cart.items.map((item: any) => ({
+        mealId: item.mealId,
+        quantity: item.quantity,
+      }))
+    )}
+  />
+
+  <textarea
+    name="address"
+    required
+    placeholder="Enter delivery address"
+    className="w-full border rounded-lg p-3 text-sm"
+  />
+
   <button
-    className="mt-6 w-full bg-black text-white py-3 rounded-lg hover:opacity-90"
+    type="submit"
+    className="w-full bg-black text-white py-3 rounded-lg hover:opacity-90"
   >
-    Place Order
+    Place Order (Cash on Delivery)
   </button>
+</form>
 </div>
           </div>
         );
