@@ -6,7 +6,7 @@ import { mealService } from "@/services/meal.service";
 export default async function ProvidersPage() {
   const { data: meals } = await mealService.getMyMeals();
   ;
-
+console.log(meals)
   return (
     <div className="space-y-4">
       {/* Messages */}
@@ -49,6 +49,7 @@ export default async function ProvidersPage() {
                   >
                     {meal.available ? "Available" : "Unavailable"}
                   </span>
+                  
                 </div>
 
                 <p className="mt-1 line-clamp-2 text-sm text-gray-500">

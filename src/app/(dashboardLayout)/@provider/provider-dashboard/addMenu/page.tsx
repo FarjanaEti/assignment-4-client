@@ -18,6 +18,8 @@ export default function AddMenuPage() {
     description: "",
     price: "",
     categoryId: "",
+    cuisine: "",
+    dietType: "",
     image: "",
   });
 console.log(formData)
@@ -33,7 +35,7 @@ console.log(formData)
        
         // Filter active only (defensive frontend logic)
         const activeCategories = json.data.filter((cat: any) => cat.isActive);
-        console.log(activeCategories)
+        
         setCategories(activeCategories);
       } catch (err) {
         console.error("Failed to fetch categories");
@@ -59,7 +61,9 @@ console.log(formData)
     setSuccess("");
 
     // Basic Validation
-    if (!formData.title || !formData.price || !formData.categoryId) {
+    if (!formData.title || !formData.price || !formData.categoryId ||
+      !formData.cuisine ||
+      !formData.dietType) {
       setError("Please fill all required fields.");
       return;
     }
@@ -83,6 +87,8 @@ console.log(formData)
           description: formData.description,
           price: Number(formData.price),
           categoryId: formData.categoryId,
+          cuisine: formData.cuisine,
+          dietType: formData.dietType,
           image: formData.image,
           
         }),
@@ -102,6 +108,8 @@ if (!res.ok) {
         description: "",
         price: "",
         categoryId: "",
+        cuisine: "",
+        dietType: "",
         image: "",
       });
     } catch (err:any) {
@@ -161,12 +169,16 @@ if (!res.ok) {
 
         {/* Category */}
         <div>
-          <label className="block font-medium mb-2">Category *</label>
+          <label className="block font-medium
+           mb-2">Category *</label>
+
           <select
             name="categoryId"
             value={formData.categoryId}
             onChange={handleChange}
-            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border
+             border-black rounded-lg px-4 py-2 focus:ring-2
+              focus:ring-blue-500"
           >
             <option value="">Select category</option>
             {categories.map((cat) => (
@@ -176,6 +188,32 @@ if (!res.ok) {
             ))}
           </select>
         </div>
+
+          <div>
+          <label className="block font-medium
+           mb-2">Cuisine</label>
+        <select name="cuisine" value={formData.cuisine} onChange={handleChange}
+         className="w-full border
+             border-black rounded-lg px-4 py-2 focus:ring-2
+              focus:ring-blue-500">
+          <option value="">Select Cuisine</option>
+          <option value="Indian">Indian</option>
+          <option value="Chinese">Chinese</option>
+          <option value="Italian">Italian</option>
+        </select> </div>
+       
+             <div>
+          <label className="block font-medium
+           mb-2">Diet Type*</label>
+        <select name="dietType" value={formData.dietType} onChange={handleChange} 
+        className="w-full border
+             border-black rounded-lg px-4 py-2 focus:ring-2
+              focus:ring-blue-500">
+          <option value="">Select Diet Type</option>
+          <option value="Veg">Veg</option>
+          <option value="Vegan">Vegan</option>
+          <option value="Non-Veg">Non-Veg</option>
+        </select> </div>
 
         {/* Image URL */}
         <div>

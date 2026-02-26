@@ -1,4 +1,4 @@
-
+//provider meals edit baki
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -48,7 +48,7 @@ export default async function DashboardLayout({
               <SidebarItem label="My Orders" href="/dashboard/orders" />
               <SidebarItem label="Cart" href="/dashboard/cart" />
               <SidebarItem label="My Profile" href="/dashboard/profile" />
-              <SidebarItem label="checkOut" href="/dashboard/checkout" />
+              
             </>
           )}
 

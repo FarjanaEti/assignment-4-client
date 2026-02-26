@@ -21,12 +21,7 @@ import { userService } from "@/services/user.service";
 import NavbarAuth from "./NavbarAuth";
 import { ModeToggle } from "./MoodToggle";
 
-// const menu = [
-//   { title: "Home", url: "/" },
-//   { title: "All Meals", url: "/browsMeal" },
-//   { title: "Restaurants", url: "/restaurants" },
-//   { title: "Dashboard", url: "/dashboard" },
-// ];
+
 
 export default async function Navbar({ className }: { className?: string }) {
   const response = await userService.getSession();
@@ -44,7 +39,7 @@ export default async function Navbar({ className }: { className?: string }) {
 
   const menu = [
     { title: "Home", url: "/" },
-    { title: "All Meals", url: "/browsMeal" },
+    { title: "All Meals", url: "/browse-meal" },
     { title: "Restaurants", url: "/restaurants" },
     ...(user ? [{ title: "Dashboard", url: dashboardUrl }] : []),
   ];

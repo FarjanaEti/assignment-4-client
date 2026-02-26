@@ -6,14 +6,35 @@ const API_URL = env.BACKEND_URL;
 export interface MealData {
   name: string;
 }
-
+type GetAllMealsParams = {
+  search?: string;
+  cuisine?: string;
+  dietType?: string;
+  minPrice?: number;
+  maxPrice?: number;
+};
 export const mealService = {
   // GET ALL
-  getAllMeals: async function () {
+  getAllMeals: async function (params?: GetAllMealsParams) {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/provider/meals`, {
+      //  Build query string safely
+      const query = new URLSearchParams();
+
+      if (params?.search) query.set("search", params.search);
+      if (params?.cuisine) query.set("cuisine", params.cuisine);
+      if (params?.dietType) query.set("dietType", params.dietType);
+      if (params?.minPrice !== undefined)
+        query.set("minPrice", String(params.minPrice));
+      if (params?.maxPrice !== undefined)
+        query.set("maxPrice", String(params.maxPrice));
+
+      const url = `${API_URL}/provider/meals${
+        query.toString() ? `?${query.toString()}` : ""
+      }`;
+
+      const res = await fetch(url, {
         cache: "no-store",
         headers: {
           Cookie: cookieStore.toString(),
@@ -21,20 +42,21 @@ export const mealService = {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to fetch meal");
+        throw new Error("Failed to fetch meals");
       }
 
       const data = await res.json();
-      
-     return {
-  data: data.data ?? [],
-  pagination: data.pagination,
-  error: null,
-};
+
+      return {
+        data: data.data ?? [],
+        pagination: data.pagination ?? null,
+        error: null,
+      };
     } catch (err) {
       return {
-        data: null,
-        error: { message: "Failed to fetch meal" },
+        data: [],
+        pagination: null,
+        error: { message: "Failed to fetch meals" },
       };
     }
   },
