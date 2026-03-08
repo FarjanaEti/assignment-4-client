@@ -29,7 +29,7 @@ export default async function Navbar({ className }: { className?: string }) {
    const session = response.data?.session ?? null;
 
 
-    let dashboardUrl = "/dashboard"; // default: customer
+    let dashboardUrl = "/dashboard";
 
   if (user?.role === "PROVIDER") {
     dashboardUrl = "/provider-dashboard";

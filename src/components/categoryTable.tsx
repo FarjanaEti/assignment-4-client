@@ -10,7 +10,7 @@ export default function CategoryTable({ categories }: any) {
 const [hiddenIds, setHiddenIds] = useState<string[]>([]);
 
   const toggleCategory = async (id: string) => {
-    const res = await fetch(`${API_URL}/api/categories/${id}`, {
+    const res = await fetch(`${API_URL}/category/categories/${id}`, {
       method: "PATCH",
       credentials: "include",
     });
@@ -26,7 +26,7 @@ const [hiddenIds, setHiddenIds] = useState<string[]>([]);
   const handleDelete = async (id: string) => {
   if (!confirm("Deactivate this category?")) return;
 
-  const res = await fetch(`${API_URL}/api/categories/${id}`, {
+  const res = await fetch(`${API_URL}/category/categories/${id}`, {
     method: "PATCH",
     credentials: "include",
   });

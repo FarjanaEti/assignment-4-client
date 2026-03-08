@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import UserToggle from "@/components/userToggle";
 import { allUserService } from "@/services/allUser.service";
 

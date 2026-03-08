@@ -13,7 +13,7 @@ export const categoryService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/api/categories`, {
+      const res = await fetch(`${API_URL}/category/categories`, {
         cache: "no-store",
         headers: {
           Cookie: cookieStore.toString(),
@@ -40,7 +40,7 @@ export const categoryService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/api/admin/categories`, {
+      const res = await fetch(`${API_URL}/category/admin/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export const categoryService = {
     try {
       const cookieStore = await cookies();
 
-      const res = await fetch(`${API_URL}/api/categories/${id}`, {
+      const res = await fetch(`${API_URL}/category/categories/${id}`, {
         method: "PATCH",
         headers: {
           Cookie: cookieStore.toString(),

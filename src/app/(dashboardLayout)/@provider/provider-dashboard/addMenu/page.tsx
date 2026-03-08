@@ -27,7 +27,7 @@ console.log(formData)
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`, {
+       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/category/categories`, {
        method: "GET",
        credentials: "include",
            });

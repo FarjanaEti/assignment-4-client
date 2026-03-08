@@ -1,4 +1,4 @@
-//provider meals edit baki
+export const dynamic = "force-dynamic";
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -58,7 +58,7 @@ export default async function DashboardLayout({
               <SidebarItem label="Add-Menu" href="/provider-dashboard/addMenu" />
               <SidebarItem label="Orders" href="/provider-dashboard/orders" />
               <SidebarItem label="My Menu" href="/provider-dashboard/myMenu" />
-              <SidebarItem label="Reviews" href="/provider-dashboard/reviews" />
+              
             </>
           )}
 
@@ -67,6 +67,7 @@ export default async function DashboardLayout({
             <>
               <SidebarItem label="Users" href="/admin-dashboard/users" />
               <SidebarItem label="Providers" href="/admin-dashboard/providers" />
+              <SidebarItem label="Orders" href="/admin-dashboard/orders" />
               <SidebarItem
                 label="category"
                 href="/admin-dashboard/category"

@@ -1,5 +1,5 @@
 "use client";
-
+export const dynamic = "force-dynamic";
 import { useState, FormEvent, ChangeEvent } from "react";
 
 type CategoryFormData = {
@@ -39,7 +39,7 @@ export default function AddCategoryPage() {
       setLoading(true);
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/categories`,
+        `${process.env.NEXT_PUBLIC_API_URL}/category/admin/categories`,
         {
           method: "POST",
           credentials: "include",

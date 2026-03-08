@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Banner from "./home/banner";
 import { userService } from "@/services/user.service";
 import { mealService } from "@/services/meal.service";

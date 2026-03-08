@@ -1,5 +1,6 @@
 "use client";
 
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,7 +34,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   try {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000",
+      callbackURL: "https://assignment4-client-lilac.vercel.app",
     });
     toast.success("Verification email sent. Please verify to activate your account", { id: toastId });
   } catch {
@@ -59,7 +60,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         email: value.email,
         password: value.password,
         name: value.name,
-        callbackURL: "http://localhost:3000", 
+        callbackURL: "https://assignment4-client-lilac.vercel.app", 
       });
 
         if (error) {

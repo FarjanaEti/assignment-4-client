@@ -4,7 +4,7 @@ import { removeCartItemAction } from "@/app/action/removecart.action";
 import { placeOrderAction } from "@/app/action/orderPlace.action";
 
 export default async function CustomerOrdersPage() {
-  const { data: carts, error } = await cartServices.getMyOrders();
+  const { data: carts, error } = await cartServices.getMyCart()
   console.log(carts)
   if (error) {
     return (
@@ -111,12 +111,6 @@ export default async function CustomerOrdersPage() {
     Order Summary
   </h2>
 
-  {/* Provider / Restaurant */}
-  {/* <p className="text-sm text-gray-500 mb-4">
-    From: <span className="font-medium text-gray-800">
-      {providerName}
-    </span>
-  </p> */}
 
   {/* Ordered Items */}
   <div className="space-y-3 mb-4">

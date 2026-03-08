@@ -1,7 +1,7 @@
+
+
 import { deleteMenuAction } from "@/app/action/deleteMenuAction";
 import { mealService } from "@/services/meal.service";
-
-
 
 export default async function ProvidersPage() {
   const { data: meals } = await mealService.getMyMeals();
@@ -9,10 +9,6 @@ export default async function ProvidersPage() {
 console.log(meals)
   return (
     <div className="space-y-4">
-      {/* Messages */}
-      
-
-      
 
       {/* Meals */}
       {meals.map((meal: any) => {

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { deleteProviderAction } from "@/app/action/provider.action";
 import { providerService } from "@/services/provider.service";
 import Link from "next/link";

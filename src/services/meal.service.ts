@@ -86,6 +86,25 @@ export const mealService = {
       };
     }
   },
+//provider update meal
+  async updateMeal(id: string, payload: { title: string; price: number }) {
+   // const cookieStore = await cookies();
+
+    const res = await fetch(`${API_URL}/provider/meals/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: cookieStore.toString(),
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      throw new Error("Update failed");
+    }
+
+    return res.json();
+  },
 
   //delete meal 
   deleteMeal: async function (mealId: string) {

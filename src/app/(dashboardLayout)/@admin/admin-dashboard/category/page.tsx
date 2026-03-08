@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import CategoryTable from "@/components/categoryTable";
 import { categoryService } from "@/services/category.service";
 import Link from "next/link";

@@ -1,7 +1,9 @@
 import { createAuthClient } from "better-auth/react";
 export const authClient = createAuthClient({
-  baseURL: "http://localhost:4000",
-  // You must mirror the additional fields on the client
+  baseURL: "https://assignment4-backend-red.vercel.app",
+ fetchOptions: {
+    credentials: "include"
+  },
   user: {
     additionalFields: {
       role: { type: "string" },

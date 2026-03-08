@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { providerService } from "@/services/provider.service";
 
 export default async function Restaurants() {

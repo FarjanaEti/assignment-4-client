@@ -35,7 +35,7 @@ export const cartServices={
       return { data: null, error };
     }
   },                        
- getMyOrders: async function () {
+ getMyCart: async function () {
     try {
       const cookieStore = await cookies();
 
