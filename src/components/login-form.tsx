@@ -43,6 +43,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
+      console.log("SUBMIT TRIGGERED", value);
       const toastId = toast.loading("Logging in");
       try {
         const { data, error } = await authClient.signIn.email(value);
@@ -51,9 +52,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
           toast.error(error.message, { id: toastId });
           return;
         }
-       if (data?.token) {
-      localStorage.setItem("token", data.token); // replace with actual token key
-    }
+      
      if (data?.user) {
       localStorage.setItem("user", JSON.stringify(data.user));
     }
@@ -77,9 +76,10 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
         <form
           id="login-form"
           onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
-          }}
+  e.preventDefault();
+  e.stopPropagation();
+  form.handleSubmit(e);
+}}
         >
           <FieldGroup>
             <form.Field

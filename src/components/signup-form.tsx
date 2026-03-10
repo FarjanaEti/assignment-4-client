@@ -34,9 +34,9 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   try {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "https://assignment4-client-lilac.vercel.app",
+      
     });
-    toast.success("Verification email sent. Please verify to activate your account", { id: toastId });
+    toast.success("SignIn complete ", { id: toastId });
   } catch {
     toast.error("Google sign-in failed", { id: toastId });
   }
@@ -166,7 +166,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
           Register
         </Button>
         <Button
-          onClick={() => handleGoogleLogin()}
+          onClick={()=>handleGoogleLogin()}
           variant="outline"
           type="button"
           className="w-full"
