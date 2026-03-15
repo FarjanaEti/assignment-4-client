@@ -34,7 +34,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   try {
     await authClient.signIn.social({
       provider: "google",
-      
+       callbackURL: "/restaurants",
     });
     toast.success("SignIn complete ", { id: toastId });
   } catch {

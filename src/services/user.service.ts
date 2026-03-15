@@ -1,33 +1,31 @@
-import { env } from "@/env";
 import { cookies } from "next/headers";
 
-const AUTH_URL = env.AUTH_URL
+const AUTH_URL = process.env.AUTH_URL!;
 
 export const userService = {
   getSession: async function () {
     try {
-      const cookieStore = await cookies();
+      const cookieStore = cookies();
+      const cookieHeader = cookieStore.toString();
 
       const res = await fetch(`${AUTH_URL}/get-session`, {
-      //const res = await fetch(`http://localhost:4000/api/auth/get-session`, {
+        method: "GET",
         headers: {
-          Cookie: cookieStore.toString(),
+          cookie: cookieHeader,
         },
         cache: "no-store",
       });
 
       const session = await res.json();
 
-      if (session === null) {
-        return { data: null, error: { message: "Session is missing." } };
+      if (session?.user) {
+        return { data: session, error: null };
       }
 
-      return { data: session, error: null };
+      return { data: null, error: { message: "No session" } };
     } catch (err) {
-      console.error(err);
-      return { data: null, error: { message: "Something Went Wrong" } };
+      console.error("Session error:", err);
+      return { data: null, error: { message: "Something went wrong" } };
     }
   },
-  
-
 };

@@ -30,7 +30,6 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
   const handleGoogleLogin = async () => {
     const data = authClient.signIn.social({
       provider: "google",
-      callbackURL: "https://assignment4-client-lilac.vercel.app",
     });
   };
 
@@ -43,7 +42,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log("SUBMIT TRIGGERED", value);
+     // console.log("SUBMIT TRIGGERED", value);
       const toastId = toast.loading("Logging in");
       try {
         const { data, error } = await authClient.signIn.email(value);
@@ -57,6 +56,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
       localStorage.setItem("user", JSON.stringify(data.user));
     }
         toast.success("User Logged in Successfully", { id: toastId });
+        await new Promise((resolve) => setTimeout(resolve, 500));
           window.location.href = "/";
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });

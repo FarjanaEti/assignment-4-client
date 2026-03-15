@@ -1,3 +1,5 @@
+
+export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import { UtensilsCrossed, Menu } from "lucide-react";
 
@@ -25,9 +27,14 @@ import { ModeToggle } from "./MoodToggle";
 
 export default async function Navbar({ className }: { className?: string }) {
   const response = await userService.getSession();
-   const user = response.data?.user ?? null;
-   const session = response.data?.session ?? null;
+const user = response?.data?.user || null;
+const session = response?.data?.session || null;
 
+
+  console.log("=== NAVBAR DEBUG ===");
+  console.log("Full response:", JSON.stringify(response));
+  console.log("User:", response?.data?.user);
+  console.log("===================");
 
     let dashboardUrl = "/dashboard";
 
@@ -41,8 +48,11 @@ export default async function Navbar({ className }: { className?: string }) {
     { title: "Home", url: "/" },
     { title: "All Meals", url: "/browse-meal" },
     { title: "Restaurants", url: "/restaurants" },
-    ...(user ? [{ title: "Dashboard", url: dashboardUrl }] : []),
+    // ...(user ? [{ title: "Dashboard", url: dashboardUrl }] : []),
   ];
+  if (user) {
+ menu.push({ title: "Dashboard", url: dashboardUrl });
+}
 
   return (
     <header
