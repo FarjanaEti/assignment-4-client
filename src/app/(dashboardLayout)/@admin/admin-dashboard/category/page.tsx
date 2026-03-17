@@ -7,6 +7,7 @@ export default async function CategoriesPage() {
   const { data: categories, error } =
     await categoryService.getAllCategories();
 
+    console.log(categories)
   if (error) {
     return <div className="p-6 text-red-500">Failed to load categories</div>;
   }

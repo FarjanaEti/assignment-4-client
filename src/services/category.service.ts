@@ -1,10 +1,11 @@
-import { env } from "@/env";
+ //import { env } from "@/env";
 import { cookies } from "next/headers";
 
-const API_URL = env.BACKEND_URL;
+const API_URL = process.env.BACKEND_URL;
 
 export interface CategoryData {
   name: string;
+  isActive: boolean;
 }
 
 export const categoryService = {
@@ -12,20 +13,26 @@ export const categoryService = {
   getAllCategories: async function () {
     try {
       const cookieStore = await cookies();
+      const allCookies = cookieStore.getAll();
+
+const cookieHeader = allCookies
+  .map((c) => `${c.name}=${c.value}`)
+  .join("; ");
 
       const res = await fetch(`${API_URL}/category/categories`, {
         cache: "no-store",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: cookieHeader,
         },
       });
 
+      console.log("Status:", res.status);
       if (!res.ok) {
         throw new Error("Failed to fetch categories");
       }
 
       const data = await res.json();
-
+      console.log("data:", data);
       return { data: data.data, error: null };
     } catch (err) {
       return {
@@ -39,12 +46,17 @@ export const categoryService = {
   createCategory: async function (category: CategoryData) {
     try {
       const cookieStore = await cookies();
+      const allCookies = cookieStore.getAll();
+
+const cookieHeader = allCookies
+  .map((c) => `${c.name}=${c.value}`)
+  .join("; ");
 
       const res = await fetch(`${API_URL}/category/admin/categories`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: cookieHeader,
         },
         body: JSON.stringify(category),
       });
@@ -61,11 +73,16 @@ export const categoryService = {
   toggleCategory: async function (id: string) {
     try {
       const cookieStore = await cookies();
+      const allCookies = cookieStore.getAll();
+
+const cookieHeader = allCookies
+  .map((c) => `${c.name}=${c.value}`)
+  .join("; ");
 
       const res = await fetch(`${API_URL}/category/categories/${id}`, {
         method: "PATCH",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: cookieHeader,
         },
       });
 

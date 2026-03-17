@@ -1,4 +1,4 @@
-
+"use client"
 export const dynamic = 'force-dynamic';
 import Link from "next/link";
 import { UtensilsCrossed, Menu } from "lucide-react";
@@ -22,19 +22,19 @@ import {
 import { userService } from "@/services/user.service";
 import NavbarAuth from "./NavbarAuth";
 import { ModeToggle } from "./MoodToggle";
+import { useSession } from "@/hooks/userSession";
 
 
 
-export default async function Navbar({ className }: { className?: string }) {
-  const response = await userService.getSession();
-const user = response?.data?.user || null;
-const session = response?.data?.session || null;
+// export default async function Navbar({ className }: { className?: string }) {
+  export default function Navbar() {
+//   const response = await userService.getSession();
+// const user = response?.data?.user || null;
+// const session = response?.data?.session || null;
 
+ const { data, loading } = useSession();
+  const user = data?.user;
 
-  console.log("=== NAVBAR DEBUG ===");
-  console.log("Full response:", JSON.stringify(response));
-  console.log("User:", response?.data?.user);
-  console.log("===================");
 
     let dashboardUrl = "/dashboard";
 
@@ -56,10 +56,10 @@ const session = response?.data?.session || null;
 
   return (
     <header
-      className={cn(
-        "sticky top-0 z-50 w-full border-b bg-white shadow-sm",
-        className
-      )}
+      // className={cn(
+      //   "sticky top-0 z-50 w-full border-b bg-white shadow-sm",
+      //   className
+      // )}
     >
       <div className="container mx-auto text-black relative h-16">
         {/* Logo */}

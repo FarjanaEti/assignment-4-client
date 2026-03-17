@@ -1,5 +1,6 @@
 "use client";
 
+import { createMenuAction } from "@/app/action/addMenu.action";
 import { useEffect, useState } from "react";
 
 type Category = {
@@ -22,7 +23,7 @@ export default function AddMenuPage() {
     dietType: "",
     image: "",
   });
-console.log(formData)
+
   // Fetch Categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -54,70 +55,30 @@ console.log(formData)
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  async function handleSubmit(formData: FormData) {
+  setError("");
+  setSuccess("");
+  setLoading(true);
 
-    setError("");
-    setSuccess("");
+  const res = await createMenuAction(formData);
 
-    // Basic Validation
-    if (!formData.title || !formData.price || !formData.categoryId ||
-      !formData.cuisine ||
-      !formData.dietType) {
-      setError("Please fill all required fields.");
-      return;
-    }
+  if (!res.success) {
+    setError(res.message);
+  } else {
+    setSuccess(res.message);
+    setFormData({
+      title: "",
+      description: "",
+      price: "",
+      categoryId: "",
+      cuisine: "",
+      dietType: "",
+      image: "",
+    });
+  }
 
-    if (Number(formData.price) <= 0) {
-      setError("Price must be greater than 0.");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/provider/meals`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-          credentials: "include",
-        body: JSON.stringify({
-          title: formData.title,
-          description: formData.description,
-          price: Number(formData.price),
-          categoryId: formData.categoryId,
-          cuisine: formData.cuisine,
-          dietType: formData.dietType,
-          image: formData.image,
-          
-        }),
-      });
-
-      const result = await res.json();
-
-if (!res.ok) {
- console.error("Backend responded with error:", res.status, result);
-    throw new Error(result.message || `Server error (${res.status})`);
+  setLoading(false);
 }
-
-
-      setSuccess("Meal added successfully!");
-      setFormData({
-        title: "",
-        description: "",
-        price: "",
-        categoryId: "",
-        cuisine: "",
-        dietType: "",
-        image: "",
-      });
-    } catch (err:any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 text-black rounded-xl shadow-md">
@@ -126,7 +87,7 @@ if (!res.ok) {
       {error && <p className="text-red-500 mb-4">{error}</p>}
       {success && <p className="text-green-600 mb-4">{success}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+     <form action={handleSubmit} className="space-y-6">
 
         {/* Title */}
         <div>
