@@ -1,5 +1,6 @@
 "use client";
 
+import { toggleCategoryAction } from "@/app/action/toggleCategory.action";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -10,35 +11,29 @@ export default function CategoryTable({ categories }: any) {
 const [hiddenIds, setHiddenIds] = useState<string[]>([]);
 
   const toggleCategory = async (id: string) => {
-    const res = await fetch(`${API_URL}/category/categories/${id}`, {
-      method: "PATCH",
-      credentials: "include",
-    });
+    const res = await toggleCategoryAction(id);
 
-    if (!res.ok) {
-      alert("Action failed");
+    if (!res.success) {
+      alert(res.message);
       return;
     }
 
-     router.refresh(); 
+    router.refresh();
   };
 
-  const handleDelete = async (id: string) => {
-  if (!confirm("Deactivate this category?")) return;
 
-  const res = await fetch(`${API_URL}/category/categories/${id}`, {
-    method: "PATCH",
-    credentials: "include",
-  });
+const handleDelete = async (id: string) => {
+    if (!confirm("Deactivate this category?")) return;
 
-  if (!res.ok) {
-    alert("Action failed");
-    return;
-  }
+    const res = await toggleCategoryAction(id);
 
-  // hide from UI only
-  setHiddenIds(prev => [...prev, id]);
-};
+    if (!res.success) {
+      alert(res.message);
+      return;
+    }
+    setHiddenIds((prev) => [...prev, id]);
+  };
+
   
 
   return (

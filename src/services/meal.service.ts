@@ -19,7 +19,7 @@ export const mealService = {
     try {
       const cookieStore = await cookies();
 
-      //  Build query string safely
+  
       const query = new URLSearchParams();
 
       if (params?.search) query.set("search", params.search);
@@ -63,17 +63,22 @@ export const mealService = {
   //providers own meals 
   getMyMeals: async function () {
     try {
-      const cookieStore = await cookies();
+    const cookieStore = await cookies();
+
+  const cookieHeader = cookieStore
+  .getAll()
+  .map(c => `${c.name}=${c.value}`)
+  .join("; ");
 
       const res = await fetch(`${API_URL}/provider/meals/myMeals`, {
         cache: "no-store",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: cookieHeader,
         },
       });
 
       if (!res.ok) {
-        throw new Error("Failed to fetch meal");
+       console.error("getMyMeals failed:", res.status);
       }
 
       const data = await res.json();
@@ -81,20 +86,25 @@ export const mealService = {
       return { data: data.data, error: null };
     } catch (err) {
       return {
-        data: null,
+        data: [],
         error: { message: "Failed to fetch meal" },
       };
     }
   },
 //provider update meal
   async updateMeal(id: string, payload: { title: string; price: number }) {
-   // const cookieStore = await cookies();
+   const cookieStore = await cookies();
+
+const cookieHeader = cookieStore
+  .getAll()
+  .map(c => `${c.name}=${c.value}`)
+  .join("; ");
 
     const res = await fetch(`${API_URL}/provider/meals/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Cookie: cookieStore.toString(),
+        Cookie: cookieHeader,
       },
       body: JSON.stringify(payload),
     });
@@ -110,25 +120,27 @@ export const mealService = {
   deleteMeal: async function (mealId: string) {
     try {
       const cookieStore = await cookies();
+const cookieHeader = cookieStore
+  .getAll()
+  .map(c => `${c.name}=${c.value}`)
+  .join("; ");
   
       const res = await fetch(`${API_URL}/provider/meals/${mealId}`, {
         method: "DELETE",
          credentials: "include",
         headers: {
-          Cookie: cookieStore.toString(),
+          Cookie: cookieHeader,
         },
       });
   
       const data = await res.json();
       if (!res.ok) {
   throw new Error(data.message || "Failed to delete meal");
-}
-
-  
-      return { success: true };
+} 
+      return { success: false, error: "Delete failed" };
     } catch (error) {
   console.error("Delete meal failed:", error);
-  throw error;
+ 
 }
 
   },

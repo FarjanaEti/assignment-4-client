@@ -1,5 +1,6 @@
 "use client";
 
+import { toggleUserStatusAction } from "@/app/action/toggleUser.action";
 import { useRouter } from "next/navigation";
 
 
@@ -9,20 +10,16 @@ export default  function UserToggle({ users }: any) {
   const router = useRouter();
   console.log(users)
 
-const toggleStatus=async (id:string)=>{
-                              console.log("clicl")
-  const res = await fetch(`${API_URL}/admin/user/${id}`, {
-      method: "PATCH",
-      credentials: "include",
-    });
+const toggleStatus = async (id: string) => {
+  const res = await toggleUserStatusAction(id);
 
-    if (!res.ok) {
-      alert("Action failed");
-      return;
-    }
-  router.refresh()
- 
-}
+  if (!res.success) {
+    alert(res.message);
+    return;
+  }
+
+  router.refresh();
+};
   return (
     <div className="overflow-x-auto rounded-2xl border bg-white shadow-sm">
       <table className="min-w-full text-sm text-left">
