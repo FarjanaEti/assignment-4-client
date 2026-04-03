@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { mealService } from "@/services/meal.service";
 import Image from "next/image";
 import FilterBar from "./filter-bar";
+import { notFound } from "next/navigation";
 
 
 type PageProps = {
@@ -27,6 +28,10 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
     minPrice: params.minPrice ? Number(params.minPrice) : undefined,
     maxPrice: params.maxPrice ? Number(params.maxPrice) : undefined,
   });
+
+  if (!meals) {
+  notFound(); 
+}
 
   return (
     <section className="container mx-auto px-4">

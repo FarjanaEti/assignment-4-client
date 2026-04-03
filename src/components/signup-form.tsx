@@ -54,21 +54,24 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
     },
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Creating user");
-      console.log(toastId)
+      
       try {
         const { data, error } = await authClient.signUp.email({
         email: value.email,
         password: value.password,
         name: value.name,
-        callbackURL: "https://assignment4-client-lilac.vercel.app", 
+        callbackURL: "/", 
       });
+
+    
 
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
 
-        toast.success("Verification email sent. Please verify to activate your account", { id: toastId });
+        toast.success("Registration successful!", { id: toastId });
+        window.location.href = "/login";
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

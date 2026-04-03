@@ -48,25 +48,5 @@ export const allUserService = {
     }
   },
 
-  // CHANGE ROLE
-  // updateUserRole: async function (id: string, role: string) {
-  //   try {
-  //     const cookieStore = await cookies();
 
-  //     const res = await fetch(`${API_URL}/api/users/${id}/role`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Cookie: cookieStore.toString(),
-  //       },
-  //       body: JSON.stringify({ role }),
-  //     });
-
-  //     const data = await res.json();
-
-  //     return { data, error: null };
-  //   } catch {
-  //     return { data: null, error: { message: "Role update failed" } };
-  //   }
-  // },
 };

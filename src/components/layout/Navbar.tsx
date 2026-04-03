@@ -19,7 +19,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { userService } from "@/services/user.service";
 import NavbarAuth from "./NavbarAuth";
 import { ModeToggle } from "./MoodToggle";
 import { useSession } from "@/hooks/userSession";

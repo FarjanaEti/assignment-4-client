@@ -100,6 +100,10 @@ const cookieHeader = cookieStore
   .map(c => `${c.name}=${c.value}`)
   .join("; ");
 
+   console.log("URL:", `${API_URL}/provider/meals/${id}`);
+  console.log("Cookie header length:", cookieHeader.length); // 0 = no cookies = auth failing
+  console.log("Payload:", payload);
+
     const res = await fetch(`${API_URL}/provider/meals/${id}`, {
       method: "PATCH",
       headers: {
@@ -110,6 +114,8 @@ const cookieHeader = cookieStore
     });
 
     if (!res.ok) {
+       const errorBody = await res.text(); // read the actual error from your API
+    console.error("API error body:", errorBody);
       throw new Error("Update failed");
     }
 

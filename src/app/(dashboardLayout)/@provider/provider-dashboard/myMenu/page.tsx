@@ -1,5 +1,6 @@
 import { deleteMenuAction } from "@/app/action/deleteMenuAction";
 import { mealService } from "@/services/meal.service";
+import Link from "next/link";
 
 
 
@@ -84,9 +85,12 @@ console.log(meals)
                 </span>
 
                 <div className="flex gap-2">
-                  <button className="rounded-md bg-yellow-900 px-3 py-1 text-sm text-white hover:opacity-90">
-                    Edit
-                  </button>
+                  <Link
+                    href={`/provider-dashboard/myMenu/${meal.id}`}
+                     className="rounded-md bg-yellow-900 px-3 py-1 text-sm text-white hover:opacity-90"
+                             >
+                        Edit
+                  </Link>
 
                   {/* Delete Button */}
                   <form action={hasOrders ? undefined : deleteMenuAction}>
