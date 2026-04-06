@@ -1,33 +1,61 @@
 export const dynamic = "force-dynamic";
+
 import Banner from "./home/banner";
 import { userService } from "@/services/user.service";
 import { mealService } from "@/services/meal.service";
+import { reviewService } from "@/services/review.service";
 import Image from "next/image";
-
-function getAverageRating(reviews: any[]) {
-  if (!reviews || reviews.length === 0) return 0;
-  const total = reviews.reduce(
-    (sum, r) => sum + r.rating,
-    0
-  );
-  return total / reviews.length;
-}
 
 export default async function Home() {
   await userService.getSession();
 
   const { data: meals } = await mealService.getAllMeals();
+  const { data: reviews } = await reviewService.getAllReview();
 
-  // 🔥 Compute rating + sort + take top 8
-  const topMeals =
-    meals
-      ?.map((meal: any) => ({
+  
+  const reviewMap = reviews?.reduce((acc: any, review: any) => {
+    if (!acc[review.mealId]) {
+      acc[review.mealId] = [];
+    }
+    acc[review.mealId].push(review);
+    return acc;
+  }, {});
+
+  
+  const mealsWithRatings =
+    meals?.map((meal: any) => {
+      const mealReviews = reviewMap?.[meal.id] || [];
+
+      const avgRating =
+        mealReviews.length > 0
+          ? mealReviews.reduce(
+              (sum: number, r: any) => sum + r.rating,
+              0
+            ) / mealReviews.length
+          : 0;
+
+      // pick BEST review (highest rating)
+      const bestReview = [...mealReviews].sort(
+        (a: any, b: any) => b.rating - a.rating
+      )[0];
+
+      return {
         ...meal,
-        avgRating: getAverageRating(meal.reviews),
-        reviewCount: meal.reviews?.length || 0,
-      }))
-      .sort((a: any, b: any) => b.avgRating - a.avgRating)
-      .slice(0, 8) || [];
+        avgRating,
+        reviewCount: mealReviews.length,
+        topComment: bestReview?.comment || "No reviews yet",
+      };
+    }) || [];
+
+
+  const topMeals = mealsWithRatings
+    .filter((meal: any) => meal.reviewCount >= 1) 
+    .sort(
+      (a: any, b: any) =>
+        b.avgRating - a.avgRating ||
+        b.reviewCount - a.reviewCount
+    )
+    .slice(0, 8);
 
   return (
     <div className="space-y-12">
@@ -42,8 +70,13 @@ export default async function Home() {
           {topMeals.map((meal: any) => (
             <div
               key={meal.id}
-              className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition duration-300 overflow-hidden border"
+              className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition duration-300 overflow-hidden border relative"
             >
+              {/*  Badge */}
+              <span className="absolute top-2 left-2 bg-yellow-400 text-xs px-2 py-1 rounded">
+                Top Rated
+              </span>
+
               {/* Image */}
               <div className="relative h-52 w-full bg-gray-100">
                 {meal.image?.startsWith("http") ||
@@ -74,7 +107,12 @@ export default async function Home() {
                     "No description available"}
                 </p>
 
-                {/* Rating */}
+                {/*  Comment */}
+                <p className="text-xs text-gray-500 italic line-clamp-2">
+                  "{meal.topComment}"
+                </p>
+
+                {/* Price + Rating */}
                 <div className="flex items-center justify-between pt-2">
                   <span className="text-xl font-bold">
                     ৳{meal.price}
@@ -95,6 +133,13 @@ export default async function Home() {
                         </span>
                       )
                     )}
+
+                    {/* rating number */}
+                    <span className="text-sm text-gray-600 ml-1">
+                      {meal.avgRating.toFixed(1)}
+                    </span>
+
+                    {/* review count */}
                     <span className="text-sm text-gray-500 ml-1">
                       ({meal.reviewCount})
                     </span>

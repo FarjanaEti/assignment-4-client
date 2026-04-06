@@ -158,9 +158,13 @@ export default function AddMenuPage() {
              border-black rounded-lg px-4 py-2 focus:ring-2
               focus:ring-blue-500">
           <option value="">Select Cuisine</option>
-          <option value="Indian">Indian</option>
+          <option value="Bangladeshi">Bangladeshi</option>
           <option value="Chinese">Chinese</option>
           <option value="Italian">Italian</option>
+          <option value="Indian">Indian</option>
+          <option value="American">American</option>
+          <option value="Continental">Continental</option>
+          <option value="Global">Global</option>
         </select> </div>
        
              <div>
