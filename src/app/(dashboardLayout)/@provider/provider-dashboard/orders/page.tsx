@@ -4,13 +4,13 @@ import Link from "next/link";
 // import { updateOrderStatusAction } from "@/app/action/updateOrderStatus.action";
 
 const STATUS_FLOW = {
+  PENDING: ["PLACED", "CANCELLED"], 
   PLACED: ["PREPARING", "CANCELLED"],
   PREPARING: ["READY"],
   READY: ["DELIVERED"],
   DELIVERED: [],
   CANCELLED: [],
 };
-
 export default async function ProviderOrdersPage() {
   const { data: orders, error } =
     await orderService.getProviderOrders();
@@ -37,6 +37,7 @@ export default async function ProviderOrdersPage() {
               <th className="px-6 py-4">Date</th>
               <th className="px-6 py-4">Status</th>
               <th className="px-6 py-4">Total</th>
+              <th className="px-6 py-4">Payment</th> 
               <th className="px-6 text-center py-4">Details</th>
               <th className="px-6 py-4 text-center">
                 Action
@@ -76,6 +77,21 @@ export default async function ProviderOrdersPage() {
                   ৳ {order.totalAmount}
                 </td>
 
+                <td className="px-6 py-4">
+  <div className="flex flex-col gap-1">
+    <span className="px-2 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 w-fit">
+      {order.paymentMethod}
+    </span>
+    <span className={`px-2 py-1 rounded-full text-xs font-semibold w-fit ${
+      order.paymentStatus === "PAID" 
+        ? "bg-green-100 text-green-700" 
+        : "bg-yellow-100 text-yellow-700"
+    }`}>
+      {order.paymentStatus}
+    </span>
+  </div>
+</td>
+
                  <td className="px-6 py-4 text-center">
                   <Link
                     href={`/provider-dashboard/orders/${order.id}`}
@@ -86,7 +102,7 @@ export default async function ProviderOrdersPage() {
                 </td>
 
                 <td className="px-6 py-4 text-center space-x-2">
-                  {STATUS_FLOW[order.status as keyof typeof STATUS_FLOW]
+                  {(STATUS_FLOW[order.status as keyof typeof STATUS_FLOW] ?? [])
                     .map((nextStatus) => (
                       <form
                         key={nextStatus}
