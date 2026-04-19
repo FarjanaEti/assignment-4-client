@@ -5,7 +5,7 @@ import { placeOrderAction } from "@/app/action/orderPlace.action";
 
 export default async function CustomerOrdersPage() {
   const { data: carts, error } = await cartServices.getMyCart()
-  console.log(carts)
+
   if (error) {
     return (
       <div className="p-6 text-red-600">
@@ -156,18 +156,15 @@ export default async function CustomerOrdersPage() {
 
     <hr />
 
-    <div className="flex justify-between font-semibold text-base">
+    <div className="flex justify-between mb-4 font-semibold text-base">
       <span>Total</span>
       <span>৳{total}</span>
     </div>
   </div>
 
-  <form action={placeOrderAction} className="mt-6 space-y-4">
-  <input
-    type="hidden"
-    name="providerId"
-    value={cart.providerId}
-  />
+ {/* Cash on Delivery FORM */}
+<form action={placeOrderAction} className="space-y-4">
+  <input type="hidden" name="providerId" value={cart.providerId} />
 
   <input
     type="hidden"
@@ -180,6 +177,7 @@ export default async function CustomerOrdersPage() {
     )}
   />
 
+  {/* SINGLE ADDRESS FIELD */}
   <textarea
     name="address"
     required
@@ -187,13 +185,27 @@ export default async function CustomerOrdersPage() {
     className="w-full border rounded-lg p-3 text-sm"
   />
 
+  {/* COD BUTTON */}
   <button
     type="submit"
-    className="w-full bg-black text-white py-3 rounded-lg hover:opacity-90"
+    name="paymentMethod"
+    value="COD"
+    className="w-full bg-black text-white py-3 rounded-lg"
   >
     Place Order (Cash on Delivery)
   </button>
+
+  {/* ONLINE BUTTON */}
+  <button
+    type="submit"
+    name="paymentMethod"
+    value="ONLINE"
+    className="w-full bg-green-600 text-white py-3 rounded-lg"
+  >
+    Pay Online
+  </button>
 </form>
+
 </div>
           </div>
         );

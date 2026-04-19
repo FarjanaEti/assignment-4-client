@@ -25,7 +25,8 @@ export default async function CustomerOrdersPage() {
             <tr>
               <th className="px-6 py-4">Order ID</th>
               <th className="px-6 py-4">Date</th>
-              <th className="px-6 py-4">Status</th>
+              <th className="px-6 py-4">Order Status</th>
+              <th className="px-6 py-4">Payment Status</th>
               <th className="px-6 py-4">Total</th>
               <th className="px-6 py-4 text-right">Action</th>
             </tr>
@@ -61,6 +62,11 @@ export default async function CustomerOrdersPage() {
                 <td className="px-6 py-4">
                   <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
                     {order.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                    Pending
                   </span>
                 </td>
 

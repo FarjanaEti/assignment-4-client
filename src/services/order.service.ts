@@ -8,6 +8,7 @@ export const orderService = {
 createOrder: async function (payload: {
     providerId: string;
     address: string;
+     paymentMethod: "COD" | "ONLINE"; 
     items: {
       mealId: string;
       quantity: number;
@@ -15,12 +16,17 @@ createOrder: async function (payload: {
   }) {
     try {
       const cookieStore = await cookies();
+   
+
+       const cookieHeader = cookieStore.getAll()
+      .map(c => `${c.name}=${c.value}`)
+      .join("; ");
 
       const res = await fetch(`${API_URL}/order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Cookie: cookieStore.toString(),
+          Cookie: cookieHeader,
         },
         body: JSON.stringify(payload),
         cache: "no-store",
