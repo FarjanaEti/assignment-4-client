@@ -2,89 +2,42 @@ export const dynamic = "force-dynamic";
 
 import Banner from "./home/banner";
 import { userService } from "@/services/user.service";
-import { mealService } from "@/services/meal.service";
+import { orderService } from "@/services/order.service";
 import { reviewService } from "@/services/review.service";
 import Image from "next/image";
 
 export default async function Home() {
   await userService.getSession();
 
-  const { data: meals } = await mealService.getAllMeals();
-  const { data: reviews } = await reviewService.getAllReview();
-
+  const { data: topRated } = await reviewService.getTopRatedMeals();
+  const { data: mostOrdered } = await orderService.getMostOrderedMeals();
   
-  const reviewMap = reviews?.reduce((acc: any, review: any) => {
-    if (!acc[review.mealId]) {
-      acc[review.mealId] = [];
-    }
-    acc[review.mealId].push(review);
-    return acc;
-  }, {});
-
-  
-  const mealsWithRatings =
-    meals?.map((meal: any) => {
-      const mealReviews = reviewMap?.[meal.id] || [];
-
-      const avgRating =
-        mealReviews.length > 0
-          ? mealReviews.reduce(
-              (sum: number, r: any) => sum + r.rating,
-              0
-            ) / mealReviews.length
-          : 0;
-
-      // pick BEST review (highest rating)
-      const bestReview = [...mealReviews].sort(
-        (a: any, b: any) => b.rating - a.rating
-      )[0];
-
-      return {
-        ...meal,
-        avgRating,
-        reviewCount: mealReviews.length,
-        topComment: bestReview?.comment || "No reviews yet",
-      };
-    }) || [];
-
-
-  const topMeals = mealsWithRatings
-    .filter((meal: any) => meal.reviewCount >= 1) 
-    .sort(
-      (a: any, b: any) =>
-        b.avgRating - a.avgRating ||
-        b.reviewCount - a.reviewCount
-    )
-    .slice(0, 8);
-
+  console.log(mostOrdered)
   return (
     <div className="space-y-12">
       <Banner />
 
+      {/* TOP RATED SECTION */}
       <section className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">
-          Top Rated Meals
-        </h2>
+        <h2 className="text-3xl font-bold mb-8">⭐ Top Rated Meals</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {topMeals.map((meal: any) => (
+          {topRated?.map((item: any) => (
             <div
-              key={meal.id}
+              key={item.mealId}
               className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition duration-300 overflow-hidden border relative"
             >
-              {/*  Badge */}
-              <span className="absolute top-2 left-2 bg-yellow-400 text-xs px-2 py-1 rounded">
+              <span className="absolute top-2 left-2 bg-yellow-400 text-xs px-2 py-1 rounded z-10">
                 Top Rated
               </span>
 
-              {/* Image */}
               <div className="relative h-52 w-full bg-gray-100">
-                {meal.image?.startsWith("http") ||
-                meal.image?.startsWith("/") ? (
+                {item.meal?.image ? (
                   <Image
-                    src={meal.image}
-                    alt={meal.title}
+                    src={item.meal.image}
+                    alt={item.meal.title}
                     fill
+                    unoptimized
                     className="object-cover"
                   />
                 ) : (
@@ -96,58 +49,104 @@ export default async function Home() {
                 )}
               </div>
 
-              {/* Content */}
               <div className="p-5 space-y-3 text-black">
                 <h3 className="text-lg font-semibold line-clamp-1">
-                  {meal.title}
+                  {item.meal?.title}
                 </h3>
 
                 <p className="text-sm line-clamp-2">
-                  {meal.description ||
-                    "No description available"}
+                  {item.meal?.description || "No description available"}
                 </p>
 
-                {/*  Comment */}
-                <p className="text-xs text-gray-500 italic line-clamp-2">
-                  "{meal.topComment}"
-                </p>
-
-                {/* Price + Rating */}
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-xl font-bold">
-                    ৳{meal.price}
-                  </span>
+                  <span className="text-xl font-bold">৳{item.meal?.price}</span>
 
                   <div className="flex items-center gap-1">
-                    {Array.from({ length: 5 }).map(
-                      (_, i) => (
-                        <span
-                          key={i}
-                          className={
-                            i < Math.round(meal.avgRating)
-                              ? "text-yellow-400"
-                              : "text-gray-300"
-                          }
-                        >
-                          ★
-                        </span>
-                      )
-                    )}
-
-                    {/* rating number */}
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <span
+                        key={i}
+                        className={i < Math.round(item.avgRating) ? "text-yellow-400" : "text-gray-300"}
+                      >
+                        ★
+                      </span>
+                    ))}
                     <span className="text-sm text-gray-600 ml-1">
-                      {meal.avgRating.toFixed(1)}
+                      {item.avgRating.toFixed(1)}
                     </span>
-
-                    {/* review count */}
                     <span className="text-sm text-gray-500 ml-1">
-                      ({meal.reviewCount})
+                      ({item.reviewCount})
                     </span>
                   </div>
                 </div>
               </div>
             </div>
           ))}
+
+          {!topRated?.length && (
+            <p className="text-gray-400 col-span-4">No rated meals yet</p>
+          )}
+        </div>
+      </section>
+
+      {/* MOST ORDERED SECTION */}
+      <section className="container mx-auto px-4 pb-12">
+        <h2 className="text-3xl font-bold mb-8">🔥 Most Ordered Meals</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {mostOrdered?.map((item: any, index: number) => (
+            <div
+              key={item.mealId}
+              className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition duration-300 overflow-hidden border relative"
+            >
+              <span className="absolute top-2 left-2 bg-orange-400 text-white text-xs px-2 py-1 rounded z-10">
+                {index === 0 ? "🥇 Best Seller" : index === 1 ? "🥈 Popular" : index === 2 ? "🥉 Trending" : "🔥 Hot"}
+              </span>
+
+              <div className="relative h-52 w-full bg-gray-100">
+                {item.meal?.image ? (
+                  <Image
+                    src={item.meal.image}
+                    alt={item.meal.title}
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                ) : (
+                  <img
+                    src="/placeholder-food.jpeg"
+                    alt="placeholder"
+                    className="h-full w-full object-cover"
+                  />
+                )}
+              </div>
+
+              <div className="p-5 space-y-3 text-black">
+                <h3 className="text-lg font-semibold line-clamp-1">
+                  {item.meal?.title}
+                </h3>
+
+                <p className="text-sm line-clamp-2">
+                  {item.meal?.description || "No description available"}
+                </p>
+
+                <div className="flex items-center justify-between pt-2">
+                  <span className="text-xl font-bold">৳{item.meal?.price}</span>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-orange-500">
+                      {item.totalQuantity} sold
+                    </p>
+                    <p className="text-xs text-gray-400">
+                      {item.orderCount} orders
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {!mostOrdered?.length && (
+            <p className="text-gray-400 col-span-4">No orders yet</p>
+          )}
         </div>
       </section>
     </div>

@@ -58,4 +58,19 @@ export const reviewService = {
         };
       }
     },
+
+    getTopRatedMeals: async function () {
+  try {
+    const cookieStore = await cookies();
+    const res = await fetch(`${API_URL}/customer/top-rated`, {
+      cache: "no-store",
+      headers: { Cookie: cookieStore.toString() },
+    });
+    if (!res.ok) throw new Error("Failed to fetch");
+    const data = await res.json();
+    return { data: data.data, error: null };
+  } catch {
+    return { data: null, error: { message: "Failed to fetch top rated meals" } };
+  }
+},
 };
