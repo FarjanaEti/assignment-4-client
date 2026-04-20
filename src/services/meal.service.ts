@@ -12,6 +12,8 @@ type GetAllMealsParams = {
   dietType?: string;
   minPrice?: number;
   maxPrice?: number;
+   page?: number;   
+  limit?: number; 
 };
 export const mealService = {
   // GET ALL
@@ -29,6 +31,8 @@ export const mealService = {
         query.set("minPrice", String(params.minPrice));
       if (params?.maxPrice !== undefined)
         query.set("maxPrice", String(params.maxPrice));
+       if (params?.page !== undefined) query.set("page", String(params.page));     // ← ADD
+      if (params?.limit !== undefined) query.set("limit", String(params.limit));
 
       const url = `${API_URL}/provider/meals${
         query.toString() ? `?${query.toString()}` : ""
