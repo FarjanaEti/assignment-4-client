@@ -60,6 +60,28 @@ export const cartServices={
       };
     }
   },
+
+  clearCart: async function () {
+    try {
+      const cookieStore = await cookies();
+      const cookieHeader = cookieStore
+        .getAll()
+        .map((c) => `${c.name}=${c.value}`)
+        .join("; ");
+
+      const res = await fetch(`${API_URL}/customer/clearCart`, {
+        method: "DELETE",
+        headers: { Cookie: cookieHeader },
+        cache: "no-store",
+      });
+
+      if (!res.ok) throw new Error("Failed to clear cart");
+      return { success: true, error: null };
+    } catch (error) {
+      return { success: false, error: "Failed to clear cart" };
+    }
+  },
+
   removeCartItem: async function (cartItemId: string) {
     const cookieStore = await cookies();
 

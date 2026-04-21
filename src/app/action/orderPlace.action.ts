@@ -3,6 +3,7 @@
 import { orderService } from "@/services/order.service";
 import { redirect } from "next/navigation";
 import { env } from "@/env";
+import { cartServices } from "@/services/cart.service";
 export async function placeOrderAction(formData: FormData) {
   const providerId = formData.get("providerId") as string;
   const address = formData.get("address") as string;
@@ -17,13 +18,10 @@ export async function placeOrderAction(formData: FormData) {
 
   const { data: order, error } = await orderService.createOrder(payload);
 
-  // LOG to see what you actually get back
-  console.log("Order result:", order);
-  console.log("Order error:", error);
-
   if (error) {
     throw error;
   }
+await cartServices.clearCart();
 
   if (paymentMethod === "COD") {
     redirect("/dashboard/payment-success");
@@ -32,7 +30,7 @@ export async function placeOrderAction(formData: FormData) {
   if (paymentMethod === "ONLINE") {
     // Check what the actual order id field is
     const orderId = order?.id || order?.data?.id;
-    console.log("Order ID for payment:", orderId);
+    
 
     if (!orderId) {
       throw new Error("Order ID missing from response");
