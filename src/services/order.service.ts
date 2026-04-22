@@ -186,15 +186,20 @@ createOrder: async function (payload: {
 
 getMostOrderedMeals: async function () {
   try {
-    const cookieStore = await cookies();
     const res = await fetch(`${API_URL}/order/most-ordered`, {
       cache: "no-store",
-      headers: { Cookie: cookieStore.toString() },
     });
-    if (!res.ok) throw new Error("Failed to fetch");
+    console.log("most-ordered status:", res.status); // ← ADD
+    if (!res.ok) {
+      const text = await res.text();
+      console.log("most-ordered error:", text); // ← ADD
+      throw new Error("Failed to fetch");
+    }
     const data = await res.json();
+    console.log("most-ordered data:", data); // ← ADD
     return { data: data.data, error: null };
-  } catch {
+  } catch (err) {
+    console.log("most-ordered catch:", err); // ← ADD
     return { data: null, error: { message: "Failed to fetch most ordered meals" } };
   }
 },
