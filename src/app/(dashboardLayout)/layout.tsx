@@ -11,9 +11,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 import { userService } from "@/services/user.service"
 import { SidebarItem } from "@/components/ui/sidebarItem"
+import NotificationBell from "@/components/NotificationBell";
 
 export default async function DashboardLayout({
-   admin,
+  admin,
   customer,
   provider,
 }: {
@@ -23,11 +24,9 @@ export default async function DashboardLayout({
 }) {
   const { data } = await userService.getSession()
   const user = data.user
-
   const role = user.role
 
   let content: React.ReactNode = null
-
   if (role === "ADMIN") content = admin
   if (role === "CUSTOMER") content = customer
   if (role === "PROVIDER") content = provider
@@ -39,40 +38,31 @@ export default async function DashboardLayout({
         <h2 className="text-lg font-semibold mb-6">FoodHub</h2>
 
         <nav className="space-y-1">
-          {/* Common */}
           <SidebarItem label="Home" href="/" />
 
-          {/* Customer */}
           {role === "CUSTOMER" && (
             <>
               <SidebarItem label="My Orders" href="/dashboard/orders" />
               <SidebarItem label="Cart" href="/dashboard/cart" />
               <SidebarItem label="My Profile" href="/dashboard/profile" />
-              
             </>
           )}
 
-          {/* Provider */}
           {role === "PROVIDER" && (
             <>
               <SidebarItem label="Add-Menu" href="/provider-dashboard/addMenu" />
               <SidebarItem label="Orders" href="/provider-dashboard/orders" />
               <SidebarItem label="My Menu" href="/provider-dashboard/myMenu" />
-              
             </>
           )}
 
-          {/* Admin */}
-          {role === "ADMIN"&& (
+          {role === "ADMIN" && (
             <>
               <SidebarItem label="Users" href="/admin-dashboard/users" />
               <SidebarItem label="Providers" href="/admin-dashboard/providers" />
               <SidebarItem label="Orders" href="/admin-dashboard/orders" />
               <SidebarItem label="Payment" href="/admin-dashboard/payment" />
-              <SidebarItem
-                label="category"
-                href="/admin-dashboard/category"
-              />
+              <SidebarItem label="Category" href="/admin-dashboard/category" />
             </>
           )}
         </nav>
@@ -85,12 +75,10 @@ export default async function DashboardLayout({
           <h1 className="font-semibold text-lg">Dashboard</h1>
 
           <div className="flex items-center gap-4">
-            {/* Logout LEFT */}
-            <Button  variant="ghost" size="sm">
+            <Button variant="ghost" size="sm">
               Logout
             </Button>
 
-            {/* Avatar */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
@@ -106,7 +94,7 @@ export default async function DashboardLayout({
                   {user.name}
                 </div>
                 <DropdownMenuItem asChild>
-                  <Link href="/profile">Profile</Link>
+                  <Link href="/dashboard/profile">Profile</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -119,6 +107,9 @@ export default async function DashboardLayout({
           {content}
         </main>
       </div>
+      {/* Order Notifier — only for customers */}
+    {role === "CUSTOMER" && <NotificationBell />}
+
     </div>
   )
 }
