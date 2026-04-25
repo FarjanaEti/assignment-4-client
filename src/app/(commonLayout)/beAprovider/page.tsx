@@ -16,6 +16,7 @@ import { beProviderAction } from "@/app/action/beProvider.action";
 export default function PartnerWithUsPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [isError, setIsError] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -24,7 +25,18 @@ export default function PartnerWithUsPage() {
     const res = await beProviderAction(formData);
 
     setLoading(false);
-    setMessage(res.message);
+
+    if (res.success) {
+      setIsError(false);
+      setMessage("You are now a provider! Redirecting...");
+      // ← Hard reload to refresh session
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 1500); // small delay so user sees the success message
+    } else {
+      setIsError(true);
+      setMessage(res.message || "Something went wrong");
+    }
   }
 
   return (
@@ -39,7 +51,9 @@ export default function PartnerWithUsPage() {
 
         <CardContent>
           {message && (
-            <p className="mb-4 text-green-600">{message}</p>
+            <p className={`mb-4 text-sm font-medium ${isError ? "text-red-600" : "text-green-600"}`}>
+              {message}
+            </p>
           )}
 
           <form action={handleSubmit} className="space-y-6">
@@ -58,7 +72,6 @@ export default function PartnerWithUsPage() {
               <Input name="location" required />
             </div>
 
-            {/* FIXED WIDTH */}
             <div>
               <Label>Description</Label>
               <textarea
@@ -69,7 +82,7 @@ export default function PartnerWithUsPage() {
               />
             </div>
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" disabled={loading} className="w-full">
               {loading ? "Submitting..." : "Apply as Provider"}
             </Button>
           </form>
