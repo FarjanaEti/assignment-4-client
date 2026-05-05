@@ -62,10 +62,10 @@ export default function ReviewSection() {
           <h2 className="mt-4 text-3xl font-bold text-secondary">Real reviews from happy customers</h2>
         </div>
 
-        <div className="relative flex-grow overflow-hidden h-[400px]">
+        <div className="relative grow overflow-hidden h-100">
           {/* Fading effects for top and bottom */}
-          <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-primary/5 to-transparent z-10" />
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-primary/5 to-transparent z-10" />
+          <div className="absolute top-0 left-0 right-0 h-12 bg-linear-to-b from-primary/5 to-transparent z-10" />
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-linear-to-t from-primary/5 to-transparent z-10" />
 
           <motion.div
             animate={{

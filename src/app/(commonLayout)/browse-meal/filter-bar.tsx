@@ -9,6 +9,7 @@ export default function FilterBar() {
 
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [cuisine, setCuisine] = useState(searchParams.get("cuisine") || "");
+  const [categoryId, setCategoryId] = useState(searchParams.get("categoryId") || "");
   const [dietType, setDietType] = useState(searchParams.get("dietType") || "");
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "");
   const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice") || "");
@@ -18,6 +19,7 @@ export default function FilterBar() {
 
     if (search) params.set("search", search);
     if (cuisine) params.set("cuisine", cuisine);
+    if (categoryId) params.set("categoryId", categoryId);
     if (dietType) params.set("dietType", dietType);
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);

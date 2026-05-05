@@ -9,6 +9,7 @@ export interface MealData {
 type GetAllMealsParams = {
   search?: string;
   cuisine?: string;
+  categoryId?: string;
   dietType?: string;
   minPrice?: number;
   maxPrice?: number;
@@ -26,6 +27,7 @@ export const mealService = {
 
       if (params?.search) query.set("search", params.search);
       if (params?.cuisine) query.set("cuisine", params.cuisine);
+      if (params?.categoryId) query.set("categoryId", params.categoryId);
       if (params?.dietType) query.set("dietType", params.dietType);
       if (params?.minPrice !== undefined)
         query.set("minPrice", String(params.minPrice));

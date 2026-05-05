@@ -7,12 +7,15 @@ import { reviewService } from "@/services/review.service";
 import ReviewSection from "@/components/review-section";
 import Image from "next/image";
 import FAQSection from "@/components/layout/FAQ";
+import { categoryService } from "@/services/category.service";
+import CategoriesSection from "@/components/CategoriesSection";
 
 export default async function Home() {
   await userService.getSession();
 
   const { data: topRated } = await reviewService.getTopRatedMeals();
   const { data: mostOrdered } = await orderService.getMostOrderedMeals();
+  const { data: categories } = await categoryService.getAllCategories();
 
   return (
     <div className="space-y-12">
@@ -150,6 +153,8 @@ export default async function Home() {
           )}
         </div>
       </section>
+
+      {categories?.length > 0 && <CategoriesSection categories={categories} />}
 
       {/* REVIEW & FAQ SECTION */}
       <section className="container mx-auto px-4 pb-20">

@@ -11,6 +11,7 @@ type PageProps = {
   searchParams: Promise<{
     search?: string;
     cuisine?: string;
+    categoryId?: string;
     dietType?: string;
     minPrice?: string;
     maxPrice?: string;
@@ -25,6 +26,7 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
   const { data: meals, pagination } = await mealService.getAllMeals({
     search: params.search,
     cuisine: params.cuisine,
+    categoryId: params.categoryId,
     dietType: params.dietType,
     minPrice: params.minPrice ? Number(params.minPrice) : undefined,
     maxPrice: params.maxPrice ? Number(params.maxPrice) : undefined,
@@ -39,6 +41,7 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
     const query = new URLSearchParams();
     if (params.search) query.set("search", params.search);
     if (params.cuisine) query.set("cuisine", params.cuisine);
+    if (params.categoryId) query.set("categoryId", params.categoryId);
     if (params.dietType) query.set("dietType", params.dietType);
     if (params.minPrice) query.set("minPrice", params.minPrice);
     if (params.maxPrice) query.set("maxPrice", params.maxPrice);
