@@ -59,22 +59,22 @@ export default function EditMealForm({ meal }: any) {
 
       {/* Title field */}
       <div className="space-y-1">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-neutral-700">
           Meal Title
         </label>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 
-                     focus:outline-none focus:ring-2 focus:ring-yellow-900 focus:border-transparent
-                     placeholder:text-gray-400 transition"
+          className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-secondary 
+                     focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
+                     placeholder:text-neutral-400 transition"
           placeholder="e.g. Grilled Chicken"
         />
       </div>
 
       {/* Price field */}
       <div className="space-y-1">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-neutral-700">
           Price ($)
         </label>
         <input
@@ -83,9 +83,9 @@ export default function EditMealForm({ meal }: any) {
           step="0.01"
           value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-900 
-                     focus:outline-none focus:ring-2 focus:ring-yellow-900 focus:border-transparent
-                     placeholder:text-gray-400 transition"
+          className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-secondary 
+                     focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
+                     placeholder:text-neutral-400 transition"
           placeholder="e.g. 12.99"
         />
       </div>
@@ -93,8 +93,8 @@ export default function EditMealForm({ meal }: any) {
       <button
         onClick={handleSubmit}
         disabled={isPending}
-        className="w-full bg-yellow-900 hover:opacity-90 disabled:opacity-50 
-                   text-white font-semibold py-2.5 rounded-lg transition"
+        className="w-full bg-primary hover:bg-primary/90 disabled:opacity-50 
+                   text-primary-foreground font-semibold py-2.5 rounded-lg transition"
       >
         {isPending ? "Updating..." : "Update Meal"}
       </button>

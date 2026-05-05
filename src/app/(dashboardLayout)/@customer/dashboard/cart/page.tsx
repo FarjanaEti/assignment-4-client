@@ -8,7 +8,7 @@ export default async function CustomerOrdersPage() {
 
   if (error) {
     return (
-      <div className="p-6 text-red-600">
+      <div className="p-6 text-destructive">
         Failed to load cart
       </div>
     );
@@ -18,7 +18,7 @@ export default async function CustomerOrdersPage() {
     return (
       <div className="p-10 text-center">
         <h2 className="text-xl font-semibold">🛒 Your cart is empty</h2>
-        <p className="text-gray-500 mt-2">
+        <p className="text-muted-foreground mt-2">
           Add meals to place an order
         </p>
       </div>
@@ -27,7 +27,7 @@ export default async function CustomerOrdersPage() {
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-800">
+      <h1 className="text-2xl font-semibold text-card-foreground">
         My Cart
       </h1>
 
@@ -190,7 +190,7 @@ export default async function CustomerOrdersPage() {
     type="submit"
     name="paymentMethod"
     value="COD"
-    className="w-full bg-black text-white py-3 rounded-lg"
+    className="w-full bg-secondary text-secondary-foreground py-3 rounded-lg hover:bg-secondary/90"
   >
     Place Order (Cash on Delivery)
   </button>
@@ -200,7 +200,7 @@ export default async function CustomerOrdersPage() {
     type="submit"
     name="paymentMethod"
     value="ONLINE"
-    className="w-full bg-green-600 text-white py-3 rounded-lg"
+    className="w-full bg-accent text-accent-foreground py-3 rounded-lg hover:bg-accent/90"
   >
     Pay Online
   </button>

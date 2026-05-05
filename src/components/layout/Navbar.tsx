@@ -45,29 +45,24 @@ import { useSession } from "@/hooks/userSession";
 
   const menu = [
     { title: "Home", url: "/" },
+    { title: "About Us", url: "/about" },
     { title: "All Meals", url: "/browse-meal" },
     { title: "Restaurants", url: "/restaurants" },
-    // ...(user ? [{ title: "Dashboard", url: dashboardUrl }] : []),
   ];
   if (user) {
  menu.push({ title: "Dashboard", url: dashboardUrl });
 }
 
   return (
-    <header
-      // className={cn(
-      //   "sticky top-0 z-50 w-full border-b bg-white shadow-sm",
-      //   className
-      // )}
-    >
-      <div className="container mx-auto text-black relative h-16">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-sm">
+      <div className="container mx-auto relative h-16">
         {/* Logo */}
         <Link
           href="/"
           className="absolute left-6 top-1/2 flex -translate-y-1/2 items-center gap-2"
         >
-          <UtensilsCrossed className="h-6 w-6" />
-          <span className="text-lg text-black font-bold">FoodHub</span>
+          <UtensilsCrossed className="h-6 w-6 text-secondary" />
+          <span className="text-lg text-secondary font-bold">FoodHub</span>
         </Link>
 
         {/* Menu */}
@@ -79,7 +74,7 @@ import { useSession } from "@/hooks/userSession";
                   <NavigationMenuLink asChild>
                     <Link
                       href={item.url}
-                      className="text-sm font-medium hover:text-primary"
+                      className="text-sm font-medium text-secondary hover:text-primary"
                     >
                       {item.title}
                     </Link>

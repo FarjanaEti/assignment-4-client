@@ -35,39 +35,39 @@ export default async function CustomerOrdersPage() {
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-800">My Orders</h1>
+      <h1 className="text-2xl font-semibold text-card-foreground">My Orders</h1>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <p className="text-xs text-gray-500 mb-1">Total spent</p>
-          <p className="text-2xl font-semibold text-green-600">৳{totalSpent.toLocaleString()}</p>
-          <p className="text-xs text-gray-400 mt-1">On paid orders</p>
+        <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+          <p className="text-xs text-muted-foreground mb-1">Total spent</p>
+          <p className="text-2xl font-semibold text-accent">৳{totalSpent.toLocaleString()}</p>
+          <p className="text-xs text-muted-foreground mt-1">On paid orders</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <p className="text-xs text-gray-500 mb-1">Total orders</p>
-          <p className="text-2xl font-semibold text-gray-800">{totalOrders}</p>
-          <p className="text-xs text-gray-400 mt-1">All time</p>
+        <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+          <p className="text-xs text-muted-foreground mb-1">Total orders</p>
+          <p className="text-2xl font-semibold text-card-foreground">{totalOrders}</p>
+          <p className="text-xs text-muted-foreground mt-1">All time</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <p className="text-xs text-gray-500 mb-1">Delivered</p>
-          <p className="text-2xl font-semibold text-blue-600">{deliveredOrders}</p>
-          <p className="text-xs text-gray-400 mt-1">Successfully received</p>
+        <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+          <p className="text-xs text-muted-foreground mb-1">Delivered</p>
+          <p className="text-2xl font-semibold text-primary">{deliveredOrders}</p>
+          <p className="text-xs text-muted-foreground mt-1">Successfully received</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-          <p className="text-xs text-gray-500 mb-1">Active orders</p>
-          <p className="text-2xl font-semibold text-orange-500">{pendingOrders}</p>
-          <p className="text-xs text-gray-400 mt-1">In progress</p>
+        <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+          <p className="text-xs text-muted-foreground mb-1">Active orders</p>
+          <p className="text-2xl font-semibold text-primary">{pendingOrders}</p>
+          <p className="text-xs text-muted-foreground mt-1">In progress</p>
         </div>
       </div>
 
       {/* Active Orders Banner — only if any active */}
       {pendingOrders > 0 && (
-        <div className="bg-orange-50 border border-orange-200 rounded-xl px-5 py-3 flex items-center gap-3">
-          <span className="text-orange-500 text-lg">🕐</span>
+        <div className="bg-primary/10 border border-primary/20 rounded-xl px-5 py-3 flex items-center gap-3">
+          <span className="text-primary text-lg">🕐</span>
           <p className="text-sm text-green-600 font-medium">
             You have {pendingOrders} active order{pendingOrders > 1 ? "s" : ""} in progress
           </p>
@@ -85,9 +85,9 @@ export default async function CustomerOrdersPage() {
       )}
 
       {/* Orders Table */}
-      <div className="overflow-x-auto bg-white rounded-2xl shadow border border-gray-200">
-        <table className="min-w-full text-sm text-left">
-          <thead className="bg-gray-50 text-gray-600 uppercase text-xs tracking-wider">
+      <div className="overflow-x-auto bg-card rounded-2xl shadow border border-border">
+        <table className="min-w-full text-sm text-card-foreground text-left">
+          <thead className="bg-muted text-muted-foreground uppercase text-xs tracking-wider">
             <tr>
               <th className="px-6 py-4">Order ID</th>
               <th className="px-6 py-4">Date</th>
@@ -99,23 +99,23 @@ export default async function CustomerOrdersPage() {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-border">
             {totalOrders === 0 && (
               <tr>
-                <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                <td colSpan={7} className="px-6 py-12 text-center text-muted-foreground">
                   <p className="text-lg mb-1">🛒 No orders yet</p>
-                  <p className="text-xs text-gray-400">Your orders will appear here once you place one</p>
+                  <p className="text-xs text-muted-foreground">Your orders will appear here once you place one</p>
                 </td>
               </tr>
             )}
 
             {orders?.map((order: any) => (
-              <tr key={order.id} className="hover:bg-gray-50 transition">
-                <td className="px-6 py-4 font-mono text-xs text-gray-600">
+              <tr key={order.id} className="hover:bg-muted transition">
+                <td className="px-6 py-4 font-mono text-xs text-muted-foreground">
                   {order.id.slice(0, 8)}...
                 </td>
 
-                <td className="px-6 py-4 text-gray-600">
+                <td className="px-6 py-4 text-muted-foreground">
                   {new Date(order.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit", month: "short", year: "numeric"
                   })}

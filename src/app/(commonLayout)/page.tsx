@@ -4,15 +4,16 @@ import Banner from "./home/banner";
 import { userService } from "@/services/user.service";
 import { orderService } from "@/services/order.service";
 import { reviewService } from "@/services/review.service";
+import ReviewSection from "@/components/review-section";
 import Image from "next/image";
+import FAQSection from "@/components/layout/FAQ";
 
 export default async function Home() {
   await userService.getSession();
 
   const { data: topRated } = await reviewService.getTopRatedMeals();
   const { data: mostOrdered } = await orderService.getMostOrderedMeals();
-  
-  console.log(mostOrdered)
+
   return (
     <div className="space-y-12">
       <Banner />
@@ -27,11 +28,11 @@ export default async function Home() {
               key={item.mealId}
               className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition duration-300 overflow-hidden border relative"
             >
-              <span className="absolute top-2 left-2 bg-yellow-400 text-xs px-2 py-1 rounded z-10">
+              <span className="absolute top-2 left-2 bg-primary/15 text-primary text-xs px-2 py-1 rounded z-10">
                 Top Rated
               </span>
 
-              <div className="relative h-52 w-full bg-gray-100">
+              <div className="relative h-52 w-full bg-neutral-100">
                 {item.meal?.image ? (
                   <Image
                     src={item.meal.image}
@@ -49,7 +50,7 @@ export default async function Home() {
                 )}
               </div>
 
-              <div className="p-5 space-y-3 text-black">
+              <div className="p-5 space-y-3 text-secondary">
                 <h3 className="text-lg font-semibold line-clamp-1">
                   {item.meal?.title}
                 </h3>
@@ -65,7 +66,7 @@ export default async function Home() {
                     {Array.from({ length: 5 }).map((_, i) => (
                       <span
                         key={i}
-                        className={i < Math.round(item.avgRating) ? "text-yellow-400" : "text-gray-300"}
+                        className={i < Math.round(item.avgRating) ? "text-primary" : "text-neutral-300"}
                       >
                         ★
                       </span>
@@ -98,11 +99,11 @@ export default async function Home() {
               key={item.mealId}
               className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition duration-300 overflow-hidden border relative"
             >
-              <span className="absolute top-2 left-2 bg-orange-400 text-white text-xs px-2 py-1 rounded z-10">
+              <span className="absolute top-2 left-2 bg-primary/15 text-primary text-xs px-2 py-1 rounded z-10">
                 {index === 0 ? "🥇 Best Seller" : index === 1 ? "🥈 Popular" : index === 2 ? "🥉 Trending" : "🔥 Hot"}
               </span>
 
-              <div className="relative h-52 w-full bg-gray-100">
+              <div className="relative h-52 w-full bg-neutral-100">
                 {item.meal?.image ? (
                   <Image
                     src={item.meal.image}
@@ -120,7 +121,7 @@ export default async function Home() {
                 )}
               </div>
 
-              <div className="p-5 space-y-3 text-black">
+              <div className="p-5 space-y-3 text-secondary">
                 <h3 className="text-lg font-semibold line-clamp-1">
                   {item.meal?.title}
                 </h3>
@@ -132,7 +133,7 @@ export default async function Home() {
                 <div className="flex items-center justify-between pt-2">
                   <span className="text-xl font-bold">৳{item.meal?.price}</span>
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-orange-500">
+                    <p className="text-sm font-semibold text-accent">
                       {item.totalQuantity} sold
                     </p>
                     <p className="text-xs text-gray-400">
@@ -147,6 +148,14 @@ export default async function Home() {
           {!mostOrdered?.length && (
             <p className="text-gray-400 col-span-4">No orders yet</p>
           )}
+        </div>
+      </section>
+
+      {/* REVIEW & FAQ SECTION */}
+      <section className="container mx-auto px-4 pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <ReviewSection />
+          <FAQSection />
         </div>
       </section>
     </div>

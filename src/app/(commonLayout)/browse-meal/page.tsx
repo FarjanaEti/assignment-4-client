@@ -48,13 +48,13 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
 
   return (
     <section className="container mx-auto px-4 pb-12">
-      <h2 className="text-3xl text-center mt-6 font-bold mb-6">Browse Meals</h2>
+      <h2 className="text-3xl text-center mt-6 font-bold mb-6 text-card-foreground">Browse Meals</h2>
 
       <FilterBar />
 
       {/* Results count */}
       {pagination && (
-        <p className="text-sm text-gray-500 mt-4 mb-2">
+        <p className="text-sm text-muted-foreground mt-4 mb-2">
           Showing {(currentPage - 1) * 12 + 1}–{Math.min(currentPage * 12, pagination.total)} of {pagination.total} meals
         </p>
       )}
@@ -62,7 +62,7 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
       {/* Meals Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
         {meals.length === 0 && (
-          <div className="col-span-4 text-center py-20 text-gray-400">
+          <div className="col-span-4 text-center py-20 text-muted-foreground">
             <p className="text-lg">No meals found</p>
             <p className="text-sm mt-1">Try adjusting your filters</p>
           </div>
@@ -71,9 +71,9 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
         {meals.map((meal: any) => (
           <div
             key={meal.id}
-            className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden border"
+            className="bg-card rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden border border-border"
           >
-            <div className="relative h-52 w-full bg-gray-100">
+            <div className="relative h-52 w-full bg-muted">
               {meal.image?.startsWith("http") || meal.image?.startsWith("/") ? (
                 <Image src={meal.image} alt={meal.title} fill className="object-cover" />
               ) : (
@@ -82,13 +82,13 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
             </div>
 
             <div className="p-5 space-y-2">
-              <h3 className="text-lg font-semibold text-black line-clamp-1">{meal.title}</h3>
-              <p className="text-sm text-gray-500 line-clamp-2">{meal.description || "No description available"}</p>
-              <p className="text-sm"><strong>Cuisine:</strong> {meal.cuisine || "N/A"}</p>
-              <p className="text-sm"><strong>Diet:</strong> {meal.dietType || "N/A"}</p>
+              <h3 className="text-lg font-semibold text-card-foreground line-clamp-1">{meal.title}</h3>
+              <p className="text-sm text-muted-foreground line-clamp-2">{meal.description || "No description available"}</p>
+              <p className="text-sm text-muted-foreground"><strong>Cuisine:</strong> {meal.cuisine || "N/A"}</p>
+              <p className="text-sm text-muted-foreground"><strong>Diet:</strong> {meal.dietType || "N/A"}</p>
 
               <div className="flex items-center justify-between pt-3">
-                <span className="text-xl font-bold text-black">৳{meal.price}</span>
+                <span className="text-xl font-bold text-card-foreground">৳{meal.price}</span>
                 <form action={addToCartAction}>
                   <input type="hidden" name="mealId" value={meal.id} />
                   <Button size="sm" type="submit">Add To Cart</Button>

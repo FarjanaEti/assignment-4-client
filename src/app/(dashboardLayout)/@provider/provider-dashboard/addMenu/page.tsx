@@ -81,43 +81,43 @@ export default function AddMenuPage() {
 }
 
   return (
-    <div className="max-w-3xl mx-auto bg-white p-8 text-black rounded-xl shadow-md">
+    <div className="max-w-3xl mx-auto bg-card p-8 text-card-foreground rounded-xl shadow-md">
       <h1 className="text-2xl font-bold mb-6">Add New Menu Item</h1>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      {success && <p className="text-green-600 mb-4">{success}</p>}
+      {error && <p className="text-destructive mb-4">{error}</p>}
+      {success && <p className="text-accent mb-4">{success}</p>}
 
      <form action={handleSubmit} className="space-y-6">
 
         {/* Title */}
         <div>
-          <label className="block text-black font-medium mb-2">Title *</label>
+          <label className="block text-card-foreground font-medium mb-2">Title *</label>
           <input
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
-            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-border rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary"
             placeholder="Enter meal title"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block font-medium text-black mb-2">Description</label>
+          <label className="block font-medium text-card-foreground mb-2">Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             rows={4}
-            className="w-full border border-black rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-border rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary"
             placeholder="Enter description"
           />
         </div>
 
         {/* Price */}
         <div>
-          <label className="block text-black font-medium mb-2">Price (৳) *</label>
+          <label className="block text-card-foreground font-medium mb-2">Price (৳) *</label>
           <input
             type="number"
             name="price"
@@ -197,7 +197,7 @@ export default function AddMenuPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-yellow-800 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+          className="w-full bg-primary text-primary-foreground py-3 rounded-lg hover:bg-primary/90 transition"
         >
           {loading ? "Saving..." : "Add Menu"}
         </button>

@@ -21,15 +21,15 @@ export default function AddCategoryPage() {
 
   /* ---------------- UI ---------------- */
   return (
-    <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow text-black">
+    <div className="max-w-xl mx-auto bg-card p-6 rounded-xl shadow text-card-foreground">
       <h1 className="text-xl font-semibold mb-4">Add Category</h1>
 
       {message && (
         <p
           className={`mb-3 text-lg ${
             message.includes("success")
-              ? "text-green-700"
-              : "text-red-600"
+              ? "text-accent"
+              : "text-destructive"
           }`}
         >
           {message}
@@ -62,7 +62,7 @@ export default function AddCategoryPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-yellow-800 text-white py-2 rounded disabled:opacity-60"
+          className="w-full bg-primary text-primary-foreground py-2 rounded disabled:opacity-50"
         >
           {loading ? "Saving..." : "Add Category"}
         </button>

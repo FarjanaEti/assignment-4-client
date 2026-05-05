@@ -37,9 +37,9 @@ const handleDelete = async (id: string) => {
   
 
   return (
-    <div className="overflow-x-auto rounded-2xl border bg-white shadow-sm">
-      <table className="min-w-full text-sm">
-        <thead className="bg-gray-50 text-xs uppercase text-gray-600">
+    <div className="overflow-x-auto rounded-2xl border bg-card shadow-sm">
+      <table className="min-w-full text-sm text-card-foreground">
+        <thead className="bg-muted text-xs uppercase text-muted-foreground">
           <tr>
             <th className="px-6 py-4">Name</th>
             <th className="px-6 py-4">Status</th>
@@ -68,7 +68,7 @@ const handleDelete = async (id: string) => {
               <td className="px-6 py-4 text-right">
                 <button
                   onClick={() => toggleCategory(category.id)}
-                  className="text-blue-600 mr-4"
+                  className="text-primary mr-4"
                 >
                   {category.isActive ? "Deactivate" : "Activate"}
                 </button>
@@ -76,7 +76,7 @@ const handleDelete = async (id: string) => {
                 <button
                   onClick={() => handleDelete(category.id)}
                   disabled={!category.isActive}
-                  className="text-red-600 disabled:opacity-40"
+                  className="text-destructive disabled:opacity-40"
                 >
                   Delete
                 </button>
@@ -86,7 +86,7 @@ const handleDelete = async (id: string) => {
 
           {categories.length === 0 && (
             <tr>
-              <td colSpan={4} className="py-6 text-center text-gray-500">
+              <td colSpan={4} className="py-6 text-center text-muted-foreground">
                 No categories found
               </td>
             </tr>

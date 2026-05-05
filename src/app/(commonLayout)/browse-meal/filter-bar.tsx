@@ -27,21 +27,21 @@ export default function FilterBar() {
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div className="bg-card p-4 rounded-xl shadow-md grid grid-cols-1 md:grid-cols-5 gap-4">
       {/* Search */}
       <input
         type="text"
         placeholder="Search meals..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="border px-3 py-2 rounded"
+        className="border border-border px-3 py-2 rounded focus:ring-2 focus:ring-primary"
       />
 
       {/* Cuisine */}
       <select
         value={cuisine}
         onChange={(e) => setCuisine(e.target.value)}
-        className="border px-3 py-2 rounded"
+        className="border border-border px-3 py-2 rounded focus:ring-2 focus:ring-primary"
       >
         <option value="">All Cuisines</option>
         <option value="Indian">Indian</option>
@@ -53,7 +53,7 @@ export default function FilterBar() {
       <select
         value={dietType}
         onChange={(e) => setDietType(e.target.value)}
-        className="border px-3 py-2 rounded"
+        className="border border-border px-3 py-2 rounded focus:ring-2 focus:ring-primary"
       >
         <option value="">All Diet Types</option>
         <option value="Veg">Veg</option>
@@ -67,7 +67,7 @@ export default function FilterBar() {
         placeholder="Min Price"
         value={minPrice}
         onChange={(e) => setMinPrice(e.target.value)}
-        className="border px-3 py-2 rounded"
+        className="border border-border px-3 py-2 rounded focus:ring-2 focus:ring-primary"
       />
 
       {/* Max Price */}
@@ -76,13 +76,13 @@ export default function FilterBar() {
         placeholder="Max Price"
         value={maxPrice}
         onChange={(e) => setMaxPrice(e.target.value)}
-        className="border px-3 py-2 rounded"
+        className="border border-border px-3 py-2 rounded focus:ring-2 focus:ring-primary"
       />
 
       {/* Apply */}
       <button
         onClick={applyFilters}
-        className="col-span-full bg-black text-white py-2 rounded hover:opacity-90"
+        className="col-span-full bg-primary text-primary-foreground py-2 rounded hover:bg-primary/90"
       >
         Apply Filters
       </button>

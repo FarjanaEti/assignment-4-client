@@ -72,7 +72,7 @@ export default function CustomerProfile({
   );
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-orange-50 via-white to-red-50 flex items-start justify-center px-4 py-12">
+    <div className="min-h-screen bg-neutral-50 flex items-start justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -84,7 +84,7 @@ export default function CustomerProfile({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-yellow-800 rounded-3xl p-8 text-white flex flex-col sm:flex-row items-center gap-6"
+          className="bg-primary rounded-3xl p-8 text-primary-foreground flex flex-col sm:flex-row items-center gap-6"
         >
           {/* Avatar */}
           <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center text-white text-3xl font-bold shrink-0">
@@ -97,7 +97,7 @@ export default function CustomerProfile({
 
           <div className="text-center sm:text-left flex-1">
             <h2 className="text-2xl font-bold">{user.name}</h2>
-            <p className="text-yellow-200 text-sm mt-1">{user.email}</p>
+            <p className="text-primary-foreground/80 text-sm mt-1">{user.email}</p>
             <div className="flex flex-wrap gap-3 mt-3 justify-center sm:justify-start">
               {user.emailVerified && (
                 <span className="px-3 py-1 text-xs rounded-full bg-white/20 text-white">
@@ -119,7 +119,7 @@ export default function CustomerProfile({
               <p className="text-2xl font-bold">
                 {new Date(user.createdAt).getFullYear()}
               </p>
-              <p className="text-xs text-yellow-200 mt-1">Joined</p>
+              <p className="text-xs text-primary-foreground/80 mt-1">Joined</p>
             </div>
           </div>
         </motion.div>
@@ -135,24 +135,24 @@ export default function CustomerProfile({
             className="space-y-4"
           >
             {/* Account Status */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-              <h3 className="text-sm font-semibold text-gray-700 mb-4">Account status</h3>
+            <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
+              <h3 className="text-sm font-semibold text-secondary mb-4">Account status</h3>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-500">Email</span>
-                  <span className={`text-xs px-2 py-1 rounded-full ${user.emailVerified ? "bg-green-100 text-green-700" : "bg-red-100 text-red-500"}`}>
+                  <span className={`text-xs px-2 py-1 rounded-full ${user.emailVerified ? "bg-accent/10 text-accent" : "bg-red-100 text-red-500"}`}>
                     {user.emailVerified ? "Verified" : "Unverified"}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-500">Phone</span>
-                  <span className={`text-xs px-2 py-1 rounded-full ${user.phone ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"}`}>
+                  <span className={`text-xs px-2 py-1 rounded-full ${user.phone ? "bg-accent/10 text-accent" : "bg-neutral-100 text-secondary"}`}>
                     {user.phone ? "Added" : "Not added"}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-500">Role</span>
-                  <span className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700">
+                  <span className="text-xs px-2 py-1 rounded-full bg-neutral-100 text-secondary">
                     {user.role ?? "Customer"}
                   </span>
                 </div>
@@ -162,7 +162,7 @@ export default function CustomerProfile({
             {/* Member Since */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">Member since</h3>
-              <p className="text-2xl font-bold text-yellow-800">
+              <p className="text-2xl font-bold text-secondary">
                 {new Date(user.createdAt).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
               </p>
               <p className="text-xs text-gray-400 mt-1">
@@ -211,23 +211,23 @@ export default function CustomerProfile({
             ) : (
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-gray-500 block mb-1">Full name</label>
+                  <label className="text-sm text-neutral-600 block mb-1">Full name</label>
                   <input
                     type="text"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-800"
+                    className="w-full border border-neutral-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm text-gray-500 block mb-1">Phone number</label>
+                  <label className="text-sm text-neutral-600 block mb-1">Phone number</label>
                   <input
                     type="tel"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="+8801XXXXXXXXX"
-                    className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-800"
+                    className="w-full border border-neutral-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
@@ -247,7 +247,7 @@ export default function CustomerProfile({
                     whileTap={{ scale: 0.97 }}
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="px-6 py-2 rounded-lg bg-yellow-800 text-white text-sm font-medium hover:bg-yellow-700 disabled:opacity-60 transition"
+                    className="px-6 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 disabled:opacity-60 transition"
                   >
                     {isSaving ? "Saving..." : "Save changes"}
                   </motion.button>
@@ -263,7 +263,7 @@ export default function CustomerProfile({
                 </div>
 
                 {saveMsg && (
-                  <p className={`text-sm mt-2 ${saveMsg.includes("Failed") ? "text-red-500" : "text-green-600"}`}>
+                  <p className={`text-sm mt-2 ${saveMsg.includes("Failed") ? "text-red-500" : "text-accent"}`}>
                     {saveMsg}
                   </p>
                 )}

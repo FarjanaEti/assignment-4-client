@@ -19,10 +19,10 @@ console.log(meals)
         return (
           <div
             key={meal.id}
-            className="group flex gap-5 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md"
+            className="group flex gap-5 rounded-xl border border-border bg-card p-4 shadow-sm transition hover:shadow-md"
           >
             {/* Image */}
-            <div className="h-28 w-28 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+            <div className="h-28 w-28 shrink-0 overflow-hidden rounded-lg bg-muted">
               <img
                 src={meal.image || "/placeholder-food.png"}
                 alt={meal.title}
@@ -34,15 +34,15 @@ console.log(meals)
             <div className="flex flex-1 flex-col justify-between">
               <div>
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="text-lg font-semibold text-gray-800">
+                  <h3 className="text-lg font-semibold text-card-foreground">
                     {meal.title}
                   </h3>
 
                   <span
                     className={`rounded-full px-3 py-1 text-xs font-medium ${
                       meal.available
-                        ? "bg-green-100 text-green-700"
-                        : "bg-red-100 text-red-700"
+                        ? "bg-accent/10 text-accent"
+                        : "bg-destructive/10 text-destructive"
                     }`}
                   >
                     {meal.available ? "Available" : "Unavailable"}
@@ -80,14 +80,14 @@ console.log(meals)
 
               {/* Footer */}
               <div className="mt-4 flex items-center justify-between">
-                <span className="text-lg font-bold text-gray-900">
+                <span className="text-lg font-bold text-card-foreground">
                   ৳{meal.price}
                 </span>
 
                 <div className="flex gap-2">
                   <Link
                     href={`/provider-dashboard/myMenu/${meal.id}`}
-                     className="rounded-md bg-yellow-900 px-3 py-1 text-sm text-white hover:opacity-90"
+                     className="rounded-md bg-primary px-3 py-1 text-sm text-primary-foreground hover:opacity-90"
                              >
                         Edit
                   </Link>
@@ -101,7 +101,7 @@ console.log(meals)
                       className={`rounded-md px-3 py-1 text-sm transition ${
                         hasOrders
                           ? "cursor-not-allowed opacity-40 blur-[1px]"
-                          : "bg-red-600 text-white hover:bg-red-700"
+                          : "bg-destructive text-destructive-foreground hover:bg-destructive/90"
                       }`}
                     >
                       Delete

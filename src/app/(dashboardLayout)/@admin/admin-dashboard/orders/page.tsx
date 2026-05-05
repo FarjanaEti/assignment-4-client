@@ -7,7 +7,7 @@ export default async function AdminOrdersPage() {
   console.log(orders)
   if (error) {
     return (
-      <div className="p-6 text-red-500">
+      <div className="p-6 text-destructive">
         Failed to load orders
       </div>
     );
@@ -15,13 +15,13 @@ export default async function AdminOrdersPage() {
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-4xl font-bold text-center text-yellow-800">
+      <h1 className="text-4xl font-bold text-center text-primary">
        All Orders
       </h1>
 
-      <div className="overflow-x-auto bg-white rounded-2xl shadow border">
-        <table className="min-w-full text-sm text-left">
-          <thead className="bg-gray-50 uppercase text-xs">
+      <div className="overflow-x-auto bg-card rounded-2xl shadow border">
+        <table className="min-w-full text-sm text-card-foreground text-left">
+          <thead className="bg-muted uppercase text-xs text-muted-foreground">
             <tr>
               <th className="px-6 py-4">Order</th>
               <th className="px-6 py-4">Date</th>
@@ -37,7 +37,7 @@ export default async function AdminOrdersPage() {
               <tr>
                 <td
                   colSpan={5}
-                  className="px-6 py-8 text-center text-gray-500"
+                  className="px-6 py-8 text-center text-muted-foreground"
                 >
                   No orders found
                 </td>
@@ -55,7 +55,7 @@ export default async function AdminOrdersPage() {
                 </td>
 
                 <td className="px-6 py-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
                     {order.status}
                   </span>
                 </td>

@@ -7,7 +7,7 @@ export default async function Restaurants() {
 
   const stars = (avg: number) =>
     Array.from({ length: 5 }, (_, i) => (
-      <span key={i} className={i < Math.round(avg) ? "text-yellow-400" : "text-yellow-200"}>
+      <span key={i} className={i < Math.round(avg) ? "text-primary" : "text-neutral-300"}>
         ★
       </span>
     ));
@@ -15,7 +15,7 @@ export default async function Restaurants() {
   return (
     <div className="min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-6 space-y-20">
-        <h1 className="text-4xl font-extrabold mx-auto text-center text-yellow-800">
+        <h1 className="text-4xl font-extrabold mx-auto text-center text-secondary">
           Restaurants
         </h1>
 
@@ -31,13 +31,13 @@ export default async function Restaurants() {
             <section key={provider.id} className="bg-white rounded-3xl shadow-lg overflow-hidden">
 
               {/* Provider Header — two column layout */}
-              <div className="bg-yellow-800 text-white p-8 flex justify-between items-start gap-8 flex-wrap">
+              <div className="bg-primary text-primary-foreground p-8 flex justify-between items-start gap-8 flex-wrap">
 
                 {/* LEFT: Info */}
-                <div className="flex-1 min-w-[200px]">
-                  <p className="text-xs tracking-widest opacity-70 mb-1 uppercase">Restaurant</p>
+                <div className="flex-1 min-w-50">
+                  <p className="text-xs tracking-widest opacity-70 mb-1 uppercase text-neutral-200">Restaurant</p>
                   <h2 className="text-3xl font-bold mb-2">{provider.restaurantName}</h2>
-                  <p className="text-yellow-100 max-w-xl text-sm leading-relaxed mb-4">
+                  <p className="text-primary-foreground/80 max-w-xl text-sm leading-relaxed mb-4">
                     {provider.description}
                   </p>
                   <div className="flex flex-wrap gap-4 text-sm opacity-75">
@@ -48,7 +48,7 @@ export default async function Restaurants() {
                 </div>
 
                 {/* RIGHT: Rating Card */}
-                <div className="bg-white/10 rounded-2xl p-5 text-center min-w-[160px] flex-shrink-0">
+                <div className="bg-white/10 rounded-2xl p-5 text-center min-w-40 shrink-0">
                   {totalReviews > 0 ? (
                     <>
                       <p className="text-5xl font-bold leading-none">{avgRating.toFixed(1)}</p>
@@ -100,7 +100,7 @@ export default async function Restaurants() {
                             meal.available ? "hover:shadow-md" : "opacity-60"
                           }`}
                         >
-                          <div className="h-44 bg-gray-100 flex items-center justify-center">
+                          <div className="h-44 bg-neutral-100 flex items-center justify-center">
                             {meal.image ? (
                               <img
                                 src={meal.image}
@@ -108,7 +108,7 @@ export default async function Restaurants() {
                                 className="h-full w-full object-cover"
                               />
                             ) : (
-                              <span className="text-sm text-gray-400">No image</span>
+                              <span className="text-sm text-neutral-400">No image</span>
                             )}
                           </div>
 
@@ -122,7 +122,7 @@ export default async function Restaurants() {
                             {meal.reviews?.length > 0 && (
                               <div className="flex items-center gap-1">
                                 {Array.from({ length: 5 }, (_, i) => (
-                                  <span key={i} className={i < Math.round(mealAvg) ? "text-yellow-400" : "text-gray-300"}>
+                                  <span key={i} className={i < Math.round(mealAvg) ? "text-primary" : "text-neutral-300"}>
                                     ★
                                   </span>
                                 ))}
@@ -133,9 +133,9 @@ export default async function Restaurants() {
                             )}
 
                             <div className="flex items-center justify-between pt-3">
-                              <span className="font-bold text-yellow-800">৳ {meal.price}</span>
+                              <span className="font-bold text-primary">৳ {meal.price}</span>
                               {meal.available ? (
-                                <button className="text-sm px-4 py-2 rounded-lg bg-yellow-800 text-white hover:bg-yellow-700 transition">
+                                <button className="text-sm px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition">
                                   View
                                 </button>
                               ) : (
