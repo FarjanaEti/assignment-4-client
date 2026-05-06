@@ -26,16 +26,16 @@ import { useSession } from "@/hooks/userSession";
 
 
 // export default async function Navbar({ className }: { className?: string }) {
-  export default function Navbar() {
-//   const response = await userService.getSession();
-// const user = response?.data?.user || null;
-// const session = response?.data?.session || null;
+export default function Navbar() {
+  //   const response = await userService.getSession();
+  // const user = response?.data?.user || null;
+  // const session = response?.data?.session || null;
 
- const { data, loading } = useSession();
+  const { data, loading } = useSession();
   const user = data?.user;
 
 
-    let dashboardUrl = "/dashboard";
+  let dashboardUrl = "/dashboard";
 
   if (user?.role === "PROVIDER") {
     dashboardUrl = "/provider-dashboard";
@@ -50,8 +50,8 @@ import { useSession } from "@/hooks/userSession";
     { title: "Restaurants", url: "/restaurants" },
   ];
   if (user) {
- menu.push({ title: "Dashboard", url: dashboardUrl });
-}
+    menu.push({ title: "Dashboard", url: dashboardUrl });
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-sm">

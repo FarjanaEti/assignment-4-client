@@ -7,6 +7,7 @@ import FilterBar from "./filter-bar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import WishlistButton from "@/components/WishlistButton";
+import MealCard from "@/components/MealCard";
 
 type PageProps = {
   searchParams: Promise<{
@@ -107,11 +108,10 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
                 <Link
                   key={p}
                   href={buildPageUrl(p as number)}
-                  className={`px-4 py-2 text-sm border rounded-lg ${
-                    currentPage === p
+                  className={`px-4 py-2 text-sm border rounded-lg ${currentPage === p
                       ? "bg-black text-white border-black"
                       : "hover:bg-gray-50"
-                  }`}
+                    }`}
                 >
                   {p}
                 </Link>
