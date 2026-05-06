@@ -57,7 +57,7 @@ export default function CategoriesSection({ categories }: { categories: Category
   if (activeCategories.length === 0) return null;
 
   return (
-    <section ref={sectionRef} className="py-20 overflow-hidden bg-neutral-50/50">
+    <section ref={sectionRef} className="py-20 overflow-hidden bg-neutral-50/50 dark:bg-slate-950/20">
       <div className="container mx-auto px-4 mb-12">
         <div className="flex items-center gap-4">
           <div className="h-12 w-2 bg-primary rounded-full" />
@@ -81,7 +81,7 @@ export default function CategoriesSection({ categories }: { categories: Category
               <Link
                 key={category.id}
                 href={`/browse-meal?categoryId=${category.id}`}
-                className="group relative flex flex-col items-center justify-center w-64 h-64 rounded-3xl bg-white border border-border shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
+                className="group relative flex flex-col items-center justify-center w-64 h-64 rounded-3xl bg-card border border-border shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
               >
                 <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
                 
@@ -107,7 +107,7 @@ export default function CategoriesSection({ categories }: { categories: Category
             return (
               <div
                 key={`${category.id}-loop`}
-                className="group relative flex flex-col items-center justify-center w-64 h-64 rounded-3xl bg-white border border-border shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden opacity-50"
+                className="group relative flex flex-col items-center justify-center w-64 h-64 rounded-3xl bg-card border border-border shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden opacity-50"
               >
                 <div className="relative z-10 flex flex-col items-center gap-6">
                   <div className="p-5 rounded-2xl bg-primary/10 text-primary">

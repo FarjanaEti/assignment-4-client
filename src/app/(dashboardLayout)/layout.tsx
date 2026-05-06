@@ -9,9 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
-import { userService } from "@/services/user.service"
-import { SidebarItem } from "@/components/ui/sidebarItem"
+import { ROLE_NAVIGATION } from "@/constant/navigation"
 import NotificationBell from "@/components/NotificationBell";
+import NavbarAuth from "@/components/layout/NavbarAuth";
+import { redirect } from "next/navigation";
+import { userService } from "@/services/user.service";
+import { SidebarItem } from "@/components/ui/sidebarItem";
 
 export default async function DashboardLayout({
   admin,
@@ -23,93 +26,85 @@ export default async function DashboardLayout({
   provider: React.ReactNode
 }) {
   const { data } = await userService.getSession()
-  const user = data.user
-  const role = user.role
+  const user = data?.user
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const role = user?.role
 
   let content: React.ReactNode = null
   if (role === "ADMIN") content = admin
   if (role === "CUSTOMER") content = customer
   if (role === "PROVIDER") content = provider
 
+  const navItems = ROLE_NAVIGATION[role?.toUpperCase()] || [];
+
   return (
     <div className="min-h-screen flex bg-muted/40">
       {/* Sidebar */}
-      <aside className="w-64 border-r bg-background p-4 hidden md:block">
-        <h2 className="text-lg font-semibold mb-6">FoodHub</h2>
+      <aside className="w-72 border-r bg-background hidden md:flex flex-col">
+        <div className="h-16 flex items-center px-6 border-b">
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl text-primary">
+            <span className="bg-primary text-white p-1 rounded-lg">FH</span>
+            FoodHub
+          </Link>
+        </div>
 
-        <nav className="space-y-1">
+        <nav className="flex-1 p-4 space-y-2">
           <SidebarItem label="Home" href="/" />
-
-          {role === "CUSTOMER" && (
-            <>
-              <SidebarItem label="My Orders" href="/dashboard/orders" />
-              <SidebarItem label="Cart" href="/dashboard/cart" />
-              <SidebarItem label="My Profile" href="/dashboard/profile" />
-            </>
-          )}
-
-          {role === "PROVIDER" && (
-            <>
-              <SidebarItem label="Add-Menu" href="/provider-dashboard/addMenu" />
-              <SidebarItem label="Orders" href="/provider-dashboard/orders" />
-              <SidebarItem label="My Menu" href="/provider-dashboard/myMenu" />
-            </>
-          )}
-
-          {role === "ADMIN" && (
-            <>
-              <SidebarItem label="Users" href="/admin-dashboard/users" />
-              <SidebarItem label="Providers" href="/admin-dashboard/providers" />
-              <SidebarItem label="Orders" href="/admin-dashboard/orders" />
-              <SidebarItem label="Payment" href="/admin-dashboard/payment" />
-              <SidebarItem label="Category" href="/admin-dashboard/category" />
-            </>
-          )}
+          <div className="pt-4 pb-2 px-2 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/60">
+            Navigation
+          </div>
+          {navItems.map((item) => (
+            <SidebarItem
+              key={item.href}
+              label={item.label}
+              href={item.href}
+              icon={<item.icon size={18} />}
+            />
+          ))}
         </nav>
+
+        <div className="p-4 border-t border-border/50">
+          <div className="bg-muted/50 rounded-2xl p-4">
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Logged in as</p>
+            <div className="flex items-center gap-3">
+              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                {user.name?.charAt(0)}
+              </div>
+              <div className="truncate">
+                <p className="text-sm font-bold truncate">{user.name}</p>
+                <p className="text-[10px] text-muted-foreground truncate">{user.email}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </aside>
 
       {/* Main */}
       <div className="flex-1 flex flex-col">
         {/* Top Bar */}
-        <header className="h-16 border-b bg-background flex items-center justify-between px-6">
-          <h1 className="font-semibold text-lg">Dashboard</h1>
-
+        <header className="h-16 border-b bg-background/80 backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-30">
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm">
-              Logout
-            </Button>
+            <h1 className="font-black text-xl tracking-tight uppercase">
+              {role?.toLowerCase()} <span className="text-primary">Panel</span>
+            </h1>
+          </div>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer">
-                  <AvatarImage src={user.image} />
-                  <AvatarFallback>
-                    {user.name?.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="end">
-                <div className="px-3 py-2 text-sm font-medium">
-                  {user.name}
-                </div>
-                <DropdownMenuItem asChild>
-                  <Link href="/dashboard/profile">Profile</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="flex items-center gap-6">
+            {role === "CUSTOMER" && <NotificationBell />}
+            <NavbarAuth user={user} />
           </div>
         </header>
 
-        <Separator />
-
-        <main className="flex-1 p-6">
-          {content}
+        <main className="flex-1 p-8">
+          <div className="max-w-7xl mx-auto">
+            {content}
+          </div>
         </main>
       </div>
-      {/* Order Notifier — only for customers */}
-    {role === "CUSTOMER" && <NotificationBell />}
-
     </div>
   )
 }

@@ -6,6 +6,7 @@ import Image from "next/image";
 import FilterBar from "./filter-bar";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import WishlistButton from "@/components/WishlistButton";
 
 type PageProps = {
   searchParams: Promise<{
@@ -72,33 +73,7 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
         )}
 
         {meals.map((meal: any) => (
-          <div
-            key={meal.id}
-            className="bg-card rounded-2xl shadow-sm hover:shadow-lg transition overflow-hidden border border-border"
-          >
-            <div className="relative h-52 w-full bg-muted">
-              {meal.image?.startsWith("http") || meal.image?.startsWith("/") ? (
-                <Image src={meal.image} alt={meal.title} fill className="object-cover" />
-              ) : (
-                <img src="/placeholder-food.jpeg" alt="placeholder" className="h-full w-full object-cover" />
-              )}
-            </div>
-
-            <div className="p-5 space-y-2">
-              <h3 className="text-lg font-semibold text-card-foreground line-clamp-1">{meal.title}</h3>
-              <p className="text-sm text-muted-foreground line-clamp-2">{meal.description || "No description available"}</p>
-              <p className="text-sm text-muted-foreground"><strong>Cuisine:</strong> {meal.cuisine || "N/A"}</p>
-              <p className="text-sm text-muted-foreground"><strong>Diet:</strong> {meal.dietType || "N/A"}</p>
-
-              <div className="flex items-center justify-between pt-3">
-                <span className="text-xl font-bold text-card-foreground">৳{meal.price}</span>
-                <form action={addToCartAction}>
-                  <input type="hidden" name="mealId" value={meal.id} />
-                  <Button size="sm" type="submit">Add To Cart</Button>
-                </form>
-              </div>
-            </div>
-          </div>
+          <MealCard key={meal.id} meal={meal} showDetails={true} />
         ))}
       </div>
 
