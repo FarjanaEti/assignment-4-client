@@ -74,7 +74,13 @@ export default async function BrowseMeal({ searchParams }: PageProps) {
         )}
 
         {meals.map((meal: any) => (
-          <MealCard key={meal.id} meal={meal} showDetails={true} />
+          <MealCard 
+            key={meal.id} 
+            meal={meal} 
+            showDetails={true} 
+            showViewDetails={true}
+          />
+
         ))}
       </div>
 

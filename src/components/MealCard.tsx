@@ -5,7 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import WishlistButton from "./WishlistButton";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Loader2, Eye } from "lucide-react";
+import { addToCartAction } from "@/app/action/addToCart.action";
+import { useFormStatus } from "react-dom";
+
+
 
 interface Meal {
   id: string;
@@ -20,9 +24,37 @@ interface Meal {
 interface MealCardProps {
   meal: Meal;
   showDetails?: boolean;
+  showViewDetails?: boolean;
 }
 
-export default function MealCard({ meal, showDetails = false }: MealCardProps) {
+
+function AddToCartButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      type="submit"
+      size="sm"
+      disabled={pending}
+      className="rounded-xl font-bold gap-2 min-w-[120px]"
+    >
+      {pending ? (
+        <Loader2 size={16} className="animate-spin" />
+      ) : (
+        <ShoppingCart size={16} />
+      )}
+      {pending ? "Adding..." : "Add to Cart"}
+    </Button>
+  );
+}
+
+
+export default function MealCard({
+  meal,
+  showDetails = false,
+  showViewDetails = false
+}: MealCardProps) {
+
   return (
     <div className="bg-card rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-border group relative">
       {/* Wishlist Button */}
@@ -77,11 +109,25 @@ export default function MealCard({ meal, showDetails = false }: MealCardProps) {
             <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Price</span>
             <span className="text-xl font-black text-card-foreground">৳{meal.price}</span>
           </div>
-          
-          <Button size="sm" className="rounded-xl font-bold gap-2">
-            <ShoppingCart size={16} />
-            Order
-          </Button>
+
+          <div className="flex gap-2">
+            {showViewDetails && (
+              <Link href={`/meal/${meal.id}`}>
+                <Button variant="outline" size="icon-sm" className="rounded-xl border-primary/20 text-primary hover:bg-primary/5">
+                  <Eye size={16} />
+
+                </Button>
+              </Link>
+            )}
+
+            <form action={addToCartAction}>
+              <input type="hidden" name="mealId" value={meal.id} />
+              <AddToCartButton />
+            </form>
+          </div>
+
+
+
         </div>
       </div>
     </div>

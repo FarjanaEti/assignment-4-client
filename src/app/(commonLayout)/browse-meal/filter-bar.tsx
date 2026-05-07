@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import SearchBar from "@/components/SearchBar";
 
 export default function FilterBar() {
   const router = useRouter();
@@ -29,15 +30,28 @@ export default function FilterBar() {
   };
 
   return (
-    <div className="bg-card p-4 rounded-xl shadow-md grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div className="bg-card p-4 rounded-xl shadow-md grid grid-cols-1 md:grid-cols-6 gap-4">
       {/* Search */}
-      <input
-        type="text"
-        placeholder="Search meals..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="border border-border px-3 py-2 rounded focus:ring-2 focus:ring-primary"
-      />
+      <div className="md:col-span-2">
+        <SearchBar
+          value={search}
+          onChange={setSearch}
+          onSubmit={applyFilters}
+          onOptionSelect={(meal) => {
+            setSearch(meal.title);
+            const params = new URLSearchParams();
+
+            if (meal.title) params.set("search", meal.title);
+            if (cuisine) params.set("cuisine", cuisine);
+            if (categoryId) params.set("categoryId", categoryId);
+            if (dietType) params.set("dietType", dietType);
+            if (minPrice) params.set("minPrice", minPrice);
+            if (maxPrice) params.set("maxPrice", maxPrice);
+
+            router.replace(`/browse-meal?${params.toString()}`, { scroll: false });
+          }}
+        />
+      </div>
 
       {/* Cuisine */}
       <select
