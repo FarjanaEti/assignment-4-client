@@ -1,6 +1,7 @@
 import { cartServices } from "@/services/cart.service";
 import { orderService } from "@/services/order.service";
 import { userService } from "@/services/user.service";
+import RecommendedForYou from "@/components/RecommendedForYou";
 
 const CustomerDashboardHome = async () => {
   // Logged-in customer
@@ -26,6 +27,8 @@ const CustomerDashboardHome = async () => {
           Active Account
         </span>
       </div>
+
+      <RecommendedForYou orders={orders || []} cartItems={cartItems || []} />
 
       {/* QUICK STATS */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

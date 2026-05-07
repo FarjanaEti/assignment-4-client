@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { trackMealEvent } from "@/lib/recommendations";
 
 interface WishlistButtonProps {
   meal: {
@@ -35,9 +36,11 @@ export default function WishlistButton({ meal, className }: WishlistButtonProps)
     if (isWishlisted) {
       newWishlist = wishlist.filter((item: any) => item.id !== meal.id);
       toast.success("Removed from wishlist");
+      trackMealEvent("wishlist_remove", meal);
     } else {
       newWishlist = [...wishlist, meal];
       toast.success("Added to wishlist");
+      trackMealEvent("wishlist", meal);
     }
 
     localStorage.setItem("foodhub-wishlist", JSON.stringify(newWishlist));

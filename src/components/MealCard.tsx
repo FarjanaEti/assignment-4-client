@@ -8,6 +8,7 @@ import WishlistButton from "./WishlistButton";
 import { ShoppingCart, Loader2, Eye } from "lucide-react";
 import { addToCartAction } from "@/app/action/addToCart.action";
 import { useFormStatus } from "react-dom";
+import { trackMealEvent } from "@/lib/recommendations";
 
 
 
@@ -28,7 +29,11 @@ interface MealCardProps {
 }
 
 
-function AddToCartButton() {
+interface AddToCartButtonProps {
+  onTrack?: () => void;
+}
+
+function AddToCartButton({ onTrack }: AddToCartButtonProps) {
   const { pending } = useFormStatus();
 
   return (
@@ -36,6 +41,7 @@ function AddToCartButton() {
       type="submit"
       size="sm"
       disabled={pending}
+      onClick={onTrack}
       className="rounded-xl font-bold gap-2 min-w-[120px]"
     >
       {pending ? (
@@ -112,17 +118,16 @@ export default function MealCard({
 
           <div className="flex gap-2">
             {showViewDetails && (
-              <Link href={`/meal/${meal.id}`}>
+              <Link href={`/meal/${meal.id}`} onClick={() => trackMealEvent("viewed", meal)}>
                 <Button variant="outline" size="icon-sm" className="rounded-xl border-primary/20 text-primary hover:bg-primary/5">
                   <Eye size={16} />
-
                 </Button>
               </Link>
             )}
 
             <form action={addToCartAction}>
               <input type="hidden" name="mealId" value={meal.id} />
-              <AddToCartButton />
+              <AddToCartButton onTrack={() => trackMealEvent("cart", meal)} />
             </form>
           </div>
 

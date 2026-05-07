@@ -34,7 +34,7 @@ export default function PaymentSuccessPage() {
             className="relative"
           >
             <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-ping" />
-            <div className="relative bg-gradient-to-br from-primary to-primary/80 p-6 rounded-full shadow-2xl shadow-primary/40">
+            <div className="relative bg-linear-to-br from-primary to-primary/80 p-6 rounded-full shadow-2xl shadow-primary/40">
               <CheckCircle2 size={48} className="text-white" strokeWidth={2.5} />
             </div>
           </motion.div>
